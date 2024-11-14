@@ -17,7 +17,7 @@ public class Game {
 
     public void createRandomOrder(ArrayList<String> players){
         Collections.shuffle(players); // Slumpar listan
-        this.playOrder.addAll(players); // Lägger till alla spelare i spellistan
+        this.playOrder.addAll(players); // Lägger till alla spelare i kölistan
     }
 
     public String switchTurn() {
