@@ -34,4 +34,13 @@ public class Game {
         this.winner = winner;
         this.gameOn = false; // Spelet avslutas när en vinnare har utvalts
     }
+
+    // Kontrollerar om spelet fortfarande är igång
+    public boolean isGameOn() {
+        return gameOn;
+    }
+
+    public int getGameID() {
+        return gameID;
+    }
 }
