@@ -1,19 +1,19 @@
-import java.util.ArrayList;
+
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class menu {
-
     public int currentGameID;
 
-    public static void main(String[] args) {
+  public static void menyval() {
 
-        
-
-
-        // TODO skapa en spelarlista
-        //TODO hämta metod om att fråga om namn - addPlayer
+        // TODO gör menyn till en egen metod - KLART
+    
+        // TODO hämta metod om att fråga om namn - addPlayer
         // TODO returnera en arraylist Players
+
+
 
         // Menyval för spelaren
         System.out.println("Hej och välkommen till brädspelssamlingen TicTacToe!");
@@ -77,4 +77,5 @@ public class menu {
         }
         scanner.close();
     }
+
 }
