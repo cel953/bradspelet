@@ -23,9 +23,9 @@ public class Player {
         String name = ("Player " + (1 + Game.length(playerList)));
         
 
-        System.out.println("Would you like to select a name for " + name + "?");
-        System.out.println("1: Yes.");
-        System.out.println("2: No.");
+        System.out.println("Vill du välja ett namn för " + name + "?");
+        System.out.println("1: Ja.");
+        System.out.println("2: Nej.");
         int choice;
 
         while ((choice != 1) || (choice != 2)) {
