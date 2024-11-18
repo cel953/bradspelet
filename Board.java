@@ -11,13 +11,6 @@ public class Board {
     private int spacesTotal = 9;
 
 
-
-    //Tillagt 2024-11-18
-    //Ändrat brådet till en 2d-array
-    //Spapat default-konstruktor för bräde
-
-
-
 //  --------  Methods ---------
 
 //Skapa bräde
@@ -34,7 +27,7 @@ public class Board {
         this.setName(name);
         this.setSpacesTotal(rows*columns);
         
-    //TODO ----------Felhantering -- kan inte vara 0
+    //TODO ----------Felhantering -- kan inte vara 0, hantera här eller där det skickas?
  
         for(int i = 0; i < this.table.length; i++){
             for(int j = 0; j < this.table[0].length; j++){
@@ -43,20 +36,23 @@ public class Board {
         }
     }
 
-    //TODO snygga till utskrift
+    
 
 //Skriv ut bräde i terminal
-    public void print(){
+    public void print(){   //TODO snygga till utskrift! siffror hamnar snett om det är tvåsiffrigt
     System.out.println("Here is your board!");
-    for(int i = 0; i < this.table.length; i ++){
-        for(int j = 0; j < this.table[0].length; j++){
-            System.out.print(this.table[i][j]);
-       }
+        
+    
+        this.printColumnNumbers();
+        this.printLine();
+        for(int x = 0; x < this.table.length; x++){
+            this.printRow(x);
+            this.printLine();
+        }
         System.out.println("");
+
     }
     
-    }
-
 //Kolla om space is valid - här kontrolleras att platsen finns med på brädet
     public boolean checkSpaceValid (int row, int column){
         if(row >= 0 && row < this.table.length && column >= 0 && column < this.table[0].length){
@@ -68,7 +64,7 @@ public class Board {
 
 //Kolla om plats är ledig
     public boolean checkSpaceAvailable (int row, int column){
-        if (this.table[row][column] == ' '){
+        if (checkSpaceValid(row, column) && this.table[row][column] == ' '){
             return true; 
         }else{
             return false;
@@ -88,152 +84,188 @@ public class Board {
    }
         
     
-    //TODO
+
 //Kolla om vinst
-    public boolean checkIfWin(int row, int column, int numberInRowToWin){
-        int numbersInRow = 1;
-        char checkingSymbol = table[row][column];
-        boolean doneChecking = false;
-        String checkDirection = "Left";
-        while(!doneChecking){
-            switch (checkDirection) {
-                case "Left":
-                    for(int j = column - 1; j >= 0; j--){
-                        if(this.checkSpaceValid(row, j) && (this.table[row][j] == checkingSymbol)){
-                            System.out.println("It is the same");
-                            numbersInRow++;
-                            if(numbersInRow >= numberInRowToWin){
-                                return true;
-                            }
-                        }else{ 
-                            checkDirection = "Right";
-                            break;
-                        }
-                    }
-                    
-                case "Right":
-                    for(int j = column + 1; j < this.table.length; j++){
-                        if(this.checkSpaceValid(row, j) && (this.table[row][j] == checkingSymbol)){
-                            System.out.println("It is the same");
-                            numbersInRow++;
-                            if(numbersInRow >= numberInRowToWin){
-                                return true;
-                            }
-                        }else{ 
-                            numbersInRow = 1;
-                            checkDirection = "Up";
-                            break;
-                        }
-                    }
+    public boolean checkIfWin(int row, int column, int numbersInRowToWin){
+        int Horizontal = 1;
+        int Vertical = 1;
+        int DiagonalDown = 1;
+        int DiagonalUp = 1;
 
+        Vertical = Vertical + this.checkUp(row, column);
+        Vertical = Vertical + this.checkDown(row, column);
 
-                case "Up":
-                    numbersInRow = 1;
-                    for(int j = row - 1; j >= 0; j--){
-                        if(this.checkSpaceValid(j, column) && (this.table[j][column] == checkingSymbol)){
-                            System.out.println("It is the same");
-                            numbersInRow++;
-                            if(numbersInRow >= numberInRowToWin){
-                                return true;
-                            }
-                        }else{ 
-                            checkDirection = "Down";
-                            break;
-                        }
-                    }
-                    
-                case "Down":
-                    for(int j = row + 1; j < this.table[0].length; j++){
-                        if(this.checkSpaceValid(j, column) && (this.table[j][column] == checkingSymbol)){
-                            System.out.println("It is the same");
-                            numbersInRow++;
-                            if(numbersInRow >= numberInRowToWin){
-                                return true;
-                            }
-                        }else{ 
-                            checkDirection = "UpLeft";
-                            break;
-                        }
-                    }
+        Horizontal = Horizontal + this.checkLeft(row, column);
+        Horizontal = Horizontal + this.checkRight(row, column);
 
-
-                case "UpLeft": //TODO - denna kollar nu alla kolumner innan den går vidare till nästa rad uppåt. Gäller även nedan
-                    numbersInRow = 1;
-                    for(int j = row-1; j >= 0; j--){
-                        for( int k = column-1; k >= 0; k--){
-                            if(this.checkSpaceValid(j, k) && (this.table[j][k] == checkingSymbol)){
-                                System.out.println("It is the same");
-                                numbersInRow++;
-                                if(numbersInRow >= numberInRowToWin){
-                                    return true;
-                                }
-                            }else{ 
-                                checkDirection = "DownRight";
-                                break;
-                            }
-                        }
-                    }
-                
-                case "DownRight":  //TODO
-                    for(int j = row+1; j < this.table.length; j++){
-                        for( int k = column+1; k < this.table[0].length; k++){
-                            if(this.checkSpaceValid(j, k) && (this.table[j][k] == checkingSymbol)){
-                                System.out.println("It is the same");
-                                numbersInRow++;
-                                if(numbersInRow >= numberInRowToWin){
-                                    return true;
-                                }
-                            }else{ 
-                                checkDirection = "UpRight";
-                                break;
-                            }
-                        }
-                    }
-                
-                case "UpRight": //TODO
-                    numbersInRow = 1;
-                    for(int j = row - 1; j >= 0; j--){
-                        for( int k = column+1; k < this.table[0].length; k++){
-                            if(this.checkSpaceValid(j, k) && (this.table[j][k] == checkingSymbol)){
-                                System.out.println("It is the same");
-                                numbersInRow++;
-                                if(numbersInRow >= numberInRowToWin){
-                                    return true;
-                                }
-                            }else{ 
-                                checkDirection = "DownLeft";
-                                break;
-                            }
-                        }
-                    }
-            
-                case "DownLeft":  //TODO
-                    for(int j = row+1; j < this.table.length; j++){
-                        for( int k = column-1; k >= 0; k--){
-                            if(this.checkSpaceValid(j, k) && (this.table[j][k] == checkingSymbol)){
-                                System.out.println("It is the same");
-                                numbersInRow++;
-                                if(numbersInRow >= numberInRowToWin){
-                                    return true;
-                                }
-                            }else{ 
-                                checkDirection = "Done";
-                                break;
-                            }
-                        }
-                    }
-
-                case "Done":
-                    doneChecking = true;
-                    System.out.println("No winner. Numbers in row: " + numbersInRow);
-                    return false;
-                default:
-                    return false;
-            }
+        DiagonalDown = DiagonalDown + this.checkUpLeft(row, column);
+        DiagonalDown = DiagonalDown + this.checkDownRight(row, column);
+        
+        DiagonalUp = DiagonalUp + this.checkUpRight(row, column);
+        DiagonalUp = DiagonalUp + this.checkDownLeft(row, column);
+        
+        System.out.println("Vertikalt : " + Vertical);    
+        System.out.println("Horisontellt : " + Horizontal);  
+        System.out.println("Diagonalt nedåt: " + DiagonalDown);
+        System.out.println("Diagonalt uppåt: " + DiagonalUp);
+        
+        if( Vertical >= numbersInRowToWin || 
+            Horizontal >= numbersInRowToWin ||
+            DiagonalDown >= numbersInRowToWin ||
+            DiagonalUp >= numbersInRowToWin)
+        {
+            return true;
+        }else{
+            return false;
         }
-        return false;
     }
 
+
+
+    public int checkUp(int row, int column){
+        int localNumbersInRow = 0;
+        int i = row - 1;
+        while(checkSpaceValid(i, column)){
+            if(this.table[i][column] == this.table[row][column]){
+                localNumbersInRow++;
+                i--;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersInRow;
+    }
+    public int checkDown(int row, int column){
+        int localNumbersinrow = 0;
+        int i = row + 1;
+        while(checkSpaceValid(i, column)){
+            if(this.table[i][column] == this.table[row][column]){
+                localNumbersinrow++;
+                i++;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersinrow;
+    }
+
+    public int checkLeft(int row, int column){
+        int localNumbersinrow = 0;
+        int j = column - 1;
+        while(checkSpaceValid(row, j)){
+            if(this.table[row][j] == this.table[row][column]){
+                localNumbersinrow++;
+                j--;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersinrow;
+    }
+    public int checkRight(int row, int column){
+        int localNumbersinrow = 0;
+        int j = column + 1;
+        while(checkSpaceValid(row, j)){
+            if(this.table[row][j] == this.table[row][column]){
+                localNumbersinrow++;
+                j++;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersinrow;
+    }
+
+    public int checkUpLeft(int row, int column){
+        int localNumbersinrow = 0;
+        int i = row - 1;
+        int j = column - 1;
+        while(checkSpaceValid(i, j)){
+            if(this.table[i][j] == this.table[row][column]){
+                localNumbersinrow++;
+                i--;
+                j--;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersinrow;
+    }
+
+    public int checkDownRight(int row, int column){
+        int localNumbersinrow = 0;
+        int i = row + 1;
+        int j = column + 1;
+        while(checkSpaceValid(i, j)){
+            if(this.table[i][j] == this.table[row][column]){
+                localNumbersinrow++;
+                i++;
+                j++;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersinrow;
+    }
+
+
+    public int checkUpRight(int row, int column){
+        int localNumbersinrow = 0;
+        int i = row - 1;
+        int j = column + 1;
+        while(checkSpaceValid(i, j)){
+            if(this.table[i][j] == this.table[row][column]){
+                localNumbersinrow++;
+                i--;
+                j++;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersinrow;
+    }
+
+    public int checkDownLeft(int row, int column){
+        int localNumbersinrow = 0;
+        int i = row + 1;
+        int j = column - 1;
+        while(checkSpaceValid(i, j)){
+            if(this.table[i][j] == this.table[row][column]){
+                localNumbersinrow++;
+                i++;
+                j--;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersinrow;
+    }
+
+public void printRow(int x){
+    System.out.print((x+1) + " | ");
+
+    for(char a : table[x]){
+        System.out.print(a + " | ");
+    }
+    System.out.println("");
+
+}
+
+public void printColumnNumbers(){
+    System.out.print("  | ");
+    for(int m = 1; m <= this.table[0].length; m++){
+        System.out.print(m + " | ");
+    } 
+    System.out.println("");
+}
+
+
+public void printLine(){
+    for(int m = 0; m <= this.table[0].length; m++){
+        System.out.print("----");
+    }
+    System.out.println("");
+}
 
 
 // ------- Getters and setters --------
