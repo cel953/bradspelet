@@ -11,7 +11,7 @@ public class Board {
     private int spacesTotal = 9;
 
 
-//  --------  Methods ---------
+//  -------- Public Methods ---------
 
 //Skapa bräde
     public void create(){
@@ -77,7 +77,7 @@ public class Board {
             this.table[row][column] = symbol;
             this.spacesTaken++;
             if (this.spacesTaken >= this.spacesTotal){
-                this.setIsFull(isFull);
+                this.setIsFull(true);
             }
         }
    }
@@ -118,7 +118,7 @@ public class Board {
         }
     }
 
-
+// ---------- Private methods -------
 
     private int checkUp(int row, int column){
         int localNumbersInRow = 0;
@@ -298,7 +298,6 @@ public class Board {
     public void setSpacesTotal(int spacesTotal) {
         this.spacesTotal = spacesTotal;
     }
-    
 
 
     public boolean getIsFull() {
