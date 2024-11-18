@@ -80,7 +80,7 @@ public class Game {
                 gameBoard.print();
                 currentPlayer.increaseStats(gameID, 0);
                 endGame();
-            } else if (gameBoard.isIsFull()) { // Kontrollerar om brädet är fullt
+            } else if (gameBoard.isFull()) { // Kontrollerar om brädet är fullt
                 System.out.println("\nSpelet är oavgjort!");
                 currentPlayer.increaseStats(gameID, 1);
                 endGame();
