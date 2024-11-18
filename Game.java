@@ -5,42 +5,56 @@ import java.util.Queue;
 
 public class Game {
     private int gameID;
-    private String winner;
     private boolean gameOn;
-    private Queue<String> playOrder;
+    private Queue<Player> playOrder;
+    private Player currentPlayer;
 
-    public Game(int gameID) {this.gameID = gameID;
-        this.winner = "";
+    public Game(int gameID, ArrayList<Player> players) {
+        this.gameID = gameID;
         this.gameOn = true;
-        this.playOrder = new LinkedList<>();
+        this.playOrder = createRandomOrder(players);
+        this.currentPlayer = playOrder.peek();
     }
 
-    public void createRandomOrder(ArrayList<String> players){
-        Collections.shuffle(players); // Slumpar listan
-        this.playOrder.addAll(players); // Lägger till alla spelare i kölistan
+    private Queue<Player> createRandomOrder(ArrayList<Player> players){
+        Collections.shuffle(players);
+        return new LinkedList<>(players);
     }
 
     public String switchTurn() {
-        String nextPlayer= playOrder.poll(); // Tar bort första spelaren i kön
-        playOrder.add(nextPlayer); // Lägger till spelaren på nytt sist i kön
-        return nextPlayer;
+        Player previousPlayer = playOrder.poll();
+        playOrder.add(previousPlayer);
+        currentPlayer = playOrder.peek();
+        return currentPlayer.getName();
     }
 
-    public String getWinner() {
-        return winner;
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
-    public void setWinner(String winner) {
-        this.winner = winner;
-        this.gameOn = false; // Spelet avslutas när en vinnare har utvalts
+    public void play() {
+        System.out.println("Första ronden: " + currentPlayer.getName());
+        while (gameOn) {
+            System.out.println("Nuvarande tur: " + currentPlayer.getName());
+            switchTurn();
+        }
+
+        System.out.println("Avslutat spelomgång!");
     }
 
-    // Kontrollerar om spelet fortfarande är igång
-    public boolean isGameOn() {
-        return gameOn;
+    public void endGame() {
+        gameOn = false;
     }
 
     public int getGameID() {
         return gameID;
+    }
+
+    public boolean isGameOn() {
+        return gameOn;
+    }
+
+    public Queue<Player> getPlayOrder() {
+        return playOrder;
     }
 }
