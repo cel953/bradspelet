@@ -36,8 +36,7 @@ public class Board {
         }
     }
 
-    
-
+ 
 //Skriv ut bräde i terminal
     public void print(){   //TODO snygga till utskrift! siffror hamnar snett om det är tvåsiffrigt
     System.out.println("Here is your board!");
@@ -82,8 +81,7 @@ public class Board {
             }
         }
    }
-        
-    
+ 
 
 //Kolla om vinst
     public boolean checkIfWin(int row, int column, int numbersInRowToWin){
@@ -122,7 +120,7 @@ public class Board {
 
 
 
-    public int checkUp(int row, int column){
+    private int checkUp(int row, int column){
         int localNumbersInRow = 0;
         int i = row - 1;
         while(checkSpaceValid(i, column)){
@@ -135,7 +133,7 @@ public class Board {
         }
         return localNumbersInRow;
     }
-    public int checkDown(int row, int column){
+    private int checkDown(int row, int column){
         int localNumbersinrow = 0;
         int i = row + 1;
         while(checkSpaceValid(i, column)){
@@ -149,7 +147,7 @@ public class Board {
         return localNumbersinrow;
     }
 
-    public int checkLeft(int row, int column){
+    private int checkLeft(int row, int column){
         int localNumbersinrow = 0;
         int j = column - 1;
         while(checkSpaceValid(row, j)){
@@ -162,7 +160,8 @@ public class Board {
         }
         return localNumbersinrow;
     }
-    public int checkRight(int row, int column){
+
+    private int checkRight(int row, int column){
         int localNumbersinrow = 0;
         int j = column + 1;
         while(checkSpaceValid(row, j)){
@@ -176,7 +175,7 @@ public class Board {
         return localNumbersinrow;
     }
 
-    public int checkUpLeft(int row, int column){
+    private int checkUpLeft(int row, int column){
         int localNumbersinrow = 0;
         int i = row - 1;
         int j = column - 1;
@@ -192,7 +191,7 @@ public class Board {
         return localNumbersinrow;
     }
 
-    public int checkDownRight(int row, int column){
+    private int checkDownRight(int row, int column){
         int localNumbersinrow = 0;
         int i = row + 1;
         int j = column + 1;
@@ -209,7 +208,7 @@ public class Board {
     }
 
 
-    public int checkUpRight(int row, int column){
+    private int checkUpRight(int row, int column){
         int localNumbersinrow = 0;
         int i = row - 1;
         int j = column + 1;
@@ -225,7 +224,7 @@ public class Board {
         return localNumbersinrow;
     }
 
-    public int checkDownLeft(int row, int column){
+    private int checkDownLeft(int row, int column){
         int localNumbersinrow = 0;
         int i = row + 1;
         int j = column - 1;
@@ -241,31 +240,28 @@ public class Board {
         return localNumbersinrow;
     }
 
-public void printRow(int x){
-    System.out.print((x+1) + " | ");
-
-    for(char a : table[x]){
-        System.out.print(a + " | ");
+    private void printRow(int x){
+        System.out.print((x+1) + " | ");
+        for(char a : table[x]){
+            System.out.print(a + " | ");
+        }
+        System.out.println("");
     }
-    System.out.println("");
 
-}
-
-public void printColumnNumbers(){
-    System.out.print("  | ");
-    for(int m = 1; m <= this.table[0].length; m++){
-        System.out.print(m + " | ");
-    } 
-    System.out.println("");
-}
-
-
-public void printLine(){
-    for(int m = 0; m <= this.table[0].length; m++){
-        System.out.print("----");
+    private void printColumnNumbers(){
+        System.out.print("  | ");
+        for(int m = 1; m <= this.table[0].length; m++){
+            System.out.print(m + " | ");
+        } 
+        System.out.println("");
     }
-    System.out.println("");
-}
+
+    private void printLine(){
+        for(int m = 0; m <= this.table[0].length; m++){
+            System.out.print("----");
+        }
+        System.out.println("");
+    }
 
 
 // ------- Getters and setters --------
