@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class BOardTestMain {
     public static void main(String[] args) {
         Board myBoard = new Board();
-        myBoard.create("Mitt Bräde", 3, 5);
+        myBoard.create("Mitt Bräde", 10, 15);
         boolean gameOn = true;
 
 
@@ -12,9 +12,9 @@ public class BOardTestMain {
         while (gameOn){
 
             System.out.println("what row?");
-            int row = scanner.nextInt();
+            int row = scanner.nextInt()-1;
             System.out.println("what column?");
-            int column = scanner.nextInt();
+            int column = scanner.nextInt()-1;
             scanner.nextLine();
             System.out.println("what symbol?");
             
