@@ -14,20 +14,21 @@ public class Board {
 //  -------- Public Methods ---------
 
 //Skapa bräde
-    public void create(){
+    
+                                            //TODO ----------Felhantering -- kan inte vara 0, hantera här eller där det skickas?
+    
+    public void create(){                                       //Constructor 1
         this.create("Gameboard", 3, 3);
     }
 
-    public void create(String Name){
+    public void create(String Name){                            //Constructor 2
         this.create(Name, 3, 3);
     }
     
-    public void create(String name, int rows, int columns){
+    public void create(String name, int rows, int columns){     //Constructor 3
         this.table = new char[rows][columns];
         this.setName(name);
         this.setSpacesTotal(rows*columns);
-        
-    //TODO ----------Felhantering -- kan inte vara 0, hantera här eller där det skickas?
  
         for(int i = 0; i < this.table.length; i++){
             for(int j = 0; j < this.table[0].length; j++){
@@ -38,7 +39,7 @@ public class Board {
 
  
 //Skriv ut bräde i terminal
-    public void print(){   //TODO snygga till utskrift! siffror hamnar snett om det är tvåsiffrigt
+    public void print(){                            //TODO snygga till utskrift! siffror hamnar snett om det är tvåsiffrigt
     System.out.println("Here is your board!");
         
     
@@ -70,9 +71,8 @@ public class Board {
         }
     }
 
-//Placera symbol
-    public void placeSymbol(int row, int column, char symbol){
-    //TODO ----------Felhantering och skicka true eller ha bara void?----
+//Placera symbol                                    //TODO ----------Felhantering och skicka true eller ha bara void?----
+    public void placeSymbol(int row, int column, char symbol){ 
         if (this.checkSpaceAvailable(row, column)){
             this.table[row][column] = symbol;
             this.spacesTaken++;
@@ -85,32 +85,20 @@ public class Board {
 
 //Kolla om vinst
     public boolean checkIfWin(int row, int column, int numbersInRowToWin){
-        int Horizontal = 1;
-        int Vertical = 1;
-        int DiagonalDown = 1;
-        int DiagonalUp = 1;
+        int horizontal = checkHorizontal(row, column);
+        int vertical = checkVertical(row, column);
+        int diagonalDown = checkDiagonalDown(row, column);
+        int diagonalUp = checkDiagonalUp(row, column);
 
-        Vertical = Vertical + this.checkUp(row, column);
-        Vertical = Vertical + this.checkDown(row, column);
-
-        Horizontal = Horizontal + this.checkLeft(row, column);
-        Horizontal = Horizontal + this.checkRight(row, column);
-
-        DiagonalDown = DiagonalDown + this.checkUpLeft(row, column);
-        DiagonalDown = DiagonalDown + this.checkDownRight(row, column);
+        System.out.println("Vertikalt : " + vertical);              
+        System.out.println("Horisontellt : " + horizontal);  
+        System.out.println("Diagonalt nedåt: " + diagonalDown);
+        System.out.println("Diagonalt uppåt: " + diagonalUp);
         
-        DiagonalUp = DiagonalUp + this.checkUpRight(row, column);
-        DiagonalUp = DiagonalUp + this.checkDownLeft(row, column);
-        
-        System.out.println("Vertikalt : " + Vertical);    
-        System.out.println("Horisontellt : " + Horizontal);  
-        System.out.println("Diagonalt nedåt: " + DiagonalDown);
-        System.out.println("Diagonalt uppåt: " + DiagonalUp);
-        
-        if( Vertical >= numbersInRowToWin || 
-            Horizontal >= numbersInRowToWin ||
-            DiagonalDown >= numbersInRowToWin ||
-            DiagonalUp >= numbersInRowToWin)
+        if( vertical >= numbersInRowToWin || 
+            horizontal >= numbersInRowToWin ||
+            diagonalDown >= numbersInRowToWin ||
+            diagonalUp >= numbersInRowToWin)
         {
             return true;
         }else{
@@ -119,6 +107,34 @@ public class Board {
     }
 
 // ---------- Private methods -------
+
+    private int checkHorizontal(int row, int column){
+        int localNumbersInRow = 1; 
+        localNumbersInRow = localNumbersInRow + checkLeft(row, column);
+        localNumbersInRow = localNumbersInRow + checkRight(row, column);
+        return localNumbersInRow;
+    }
+
+    private int checkVertical(int row, int column){
+        int localNumbersInRow = 1; 
+        localNumbersInRow = localNumbersInRow + checkUp(row, column);
+        localNumbersInRow = localNumbersInRow + checkDown(row, column);
+        return localNumbersInRow;
+    }
+
+    private int checkDiagonalDown(int row, int column){
+        int localNumbersInRow = 1; 
+        localNumbersInRow = localNumbersInRow + checkUpLeft(row, column);
+        localNumbersInRow = localNumbersInRow + checkDownRight(row, column);
+        return localNumbersInRow;
+    }
+
+    private int checkDiagonalUp(int row, int column){
+        int localNumbersInRow = 1; 
+        localNumbersInRow = localNumbersInRow + checkUpRight(row, column);
+        localNumbersInRow = localNumbersInRow + checkDownLeft(row, column);
+        return localNumbersInRow;
+    }
 
     private int checkUp(int row, int column){
         int localNumbersInRow = 0;
