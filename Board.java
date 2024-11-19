@@ -1,162 +1,271 @@
-package BOardTest;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+
 
 public class Board {
 
 // -------- Class variables ----------
 
-    private int numberOfRows = 3;
-    private int numberOfColumns = 3;
-    private String name = "";
+    private String name = "Gameboard";
     private boolean isFull = false;
-    private int numberOfSpaces = 9;
-    private Set<Integer> availableSpaces =  new HashSet<>();
-    private List<Character> placedSymbols = new ArrayList<>();
+    private char[][] table; 
+    private int spacesTaken = 0;
+    private int spacesTotal = 9;
 
 
-//  --------  Methods ---------
-//TODO skapa extra konstruktor för default-bräde 3x3
-    //Skapa bräde
-    public void create(String name, int rows, int columns){
-        this.setnumberOfRows(rows);
-        this.setnumberOfColumns(columns);
-        this.setName(name);
-    //----------Felhantering -- kan inte vara 0
-        this.numberOfSpaces = rows*columns;
-        for(int i = 1; i <= this.numberOfSpaces; i++){
-            availableSpaces.add(i);
-            placedSymbols.add(' ');
-        }
+//  -------- Public Methods ---------
 
+//Skapa bräde
+    public void create(){
+        this.create("Gameboard", 3, 3);
     }
 
-    //Skriv ut bräde i terminal
-    public void print(){
-    System.out.println("Here is your board!");
-//    System.out.println(placedSymbols);
-    for(int i = 1; i <= this.numberOfRows; i ++){
-        for(int j = 1; j <= this.numberOfColumns; j++){
-            int symbolsPlace = convertCoordinateToNumber(i, j);
-            System.out.print(this.placedSymbols.get(symbolsPlace-1) + "|");
-        }
-        System.out.println("");
+    public void create(String Name){
+        this.create(Name, 3, 3);
     }
     
+    public void create(String name, int rows, int columns){
+        this.table = new char[rows][columns];
+        this.setName(name);
+        this.setSpacesTotal(rows*columns);
+        
+    //TODO ----------Felhantering -- kan inte vara 0, hantera här eller där det skickas?
+ 
+        for(int i = 0; i < this.table.length; i++){
+            for(int j = 0; j < this.table[0].length; j++){
+                table[i][j] = ' ';
+            }
+        }
     }
 
-    //Kolla om space is valid - här kontrolleras att platsen finns med på brädet
+ 
+//Skriv ut bräde i terminal
+    public void print(){   //TODO snygga till utskrift! siffror hamnar snett om det är tvåsiffrigt
+    System.out.println("Here is your board!");
+        
+    
+        this.printColumnNumbers();
+        this.printLine();
+        for(int x = 0; x < this.table.length; x++){
+            this.printRow(x);
+            this.printLine();
+        }
+        System.out.println("");
+
+    }
+    
+//Kolla om space is valid - här kontrolleras att platsen finns med på brädet
     public boolean checkSpaceValid (int row, int column){
-    // --------Felhantering: Om både rad och kolumn är mellan 1 och max görs nedan
-        if(row >= 1 && row <= this.numberOfRows && column >= 1 && column <= this.numberOfColumns){
+        if(row >= 0 && row < this.table.length && column >= 0 && column < this.table[0].length){
             return true;
         }else{
             return false;
         }
     }
 
-    //Kolla om plats är ledig
+//Kolla om plats är ledig
     public boolean checkSpaceAvailable (int row, int column){
-        int number = this.convertCoordinateToNumber(row, column);
-        if(availableSpaces.contains(number)){
+        if (checkSpaceValid(row, column) && this.table[row][column] == ' '){
             return true; 
         }else{
             return false;
         }
     }
 
-    //Placera symbol
+//Placera symbol
     public void placeSymbol(int row, int column, char symbol){
-    //----------Felhantering och skicka true eller ha bara void?----
-            int number = this.convertCoordinateToNumber(row, column);
-            placedSymbols.set(number-1, symbol);
-            availableSpaces.remove(number);
-            if(availableSpaces.isEmpty()){
+    //TODO ----------Felhantering och skicka true eller ha bara void?----
+        if (this.checkSpaceAvailable(row, column)){
+            this.table[row][column] = symbol;
+            this.spacesTaken++;
+            if (this.spacesTaken >= this.spacesTotal){
                 this.setIsFull(true);
             }
         }
-        
-    
-//TODO
-    //Kolla om vinst
-    public boolean checkIfWin(int row, int column, int numberInRowToWin){
+   }
+ 
 
-        int sentSymbolNumber = this.convertCoordinateToNumber(row, column);
-        char sentChar = placedSymbols.get(sentSymbolNumber-1);
-        int numbersInRow = 1;
-        do{
-            for(int i = 1; i < this.numberOfColumns; i++){
-                if(this.checkSpaceValid(row, column-i)){
-                    int tempspace = this.convertCoordinateToNumber(row, column-i);
-                    if (sentChar == placedSymbols.get(tempspace-1)){
-                        System.out.println("It is the same");
-                        numbersInRow++;
-                    }else{
-                        System.out.println("Not the same!");    
-                        break;
-                    }
+//Kolla om vinst
+    public boolean checkIfWin(int row, int column, int numbersInRowToWin){
+        int Horizontal = 1;
+        int Vertical = 1;
+        int DiagonalDown = 1;
+        int DiagonalUp = 1;
+
+        Vertical = Vertical + this.checkUp(row, column);
+        Vertical = Vertical + this.checkDown(row, column);
+
+        Horizontal = Horizontal + this.checkLeft(row, column);
+        Horizontal = Horizontal + this.checkRight(row, column);
+
+        DiagonalDown = DiagonalDown + this.checkUpLeft(row, column);
+        DiagonalDown = DiagonalDown + this.checkDownRight(row, column);
+        
+        DiagonalUp = DiagonalUp + this.checkUpRight(row, column);
+        DiagonalUp = DiagonalUp + this.checkDownLeft(row, column);
+        
+        System.out.println("Vertikalt : " + Vertical);    
+        System.out.println("Horisontellt : " + Horizontal);  
+        System.out.println("Diagonalt nedåt: " + DiagonalDown);
+        System.out.println("Diagonalt uppåt: " + DiagonalUp);
+        
+        if( Vertical >= numbersInRowToWin || 
+            Horizontal >= numbersInRowToWin ||
+            DiagonalDown >= numbersInRowToWin ||
+            DiagonalUp >= numbersInRowToWin)
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+// ---------- Private methods -------
+
+    private int checkUp(int row, int column){
+        int localNumbersInRow = 0;
+        int i = row - 1;
+        while(checkSpaceValid(i, column)){
+            if(this.table[i][column] == this.table[row][column]){
+                localNumbersInRow++;
+                i--;
+            }else{ 
+                break;
             }
-       }
+        }
+        return localNumbersInRow;
+    }
+    private int checkDown(int row, int column){
+        int localNumbersinrow = 0;
+        int i = row + 1;
+        while(checkSpaceValid(i, column)){
+            if(this.table[i][column] == this.table[row][column]){
+                localNumbersinrow++;
+                i++;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersinrow;
     }
 
-        
-
-
-
-
-
-
-        /*
-        Idé: ta emot rad/kolumn. 
-
-            Jämför med set placed symbols. 
-
-            Kolla vilken symbol som finns där. 
-            Kolla sedan först horisontellt: 
-            
-            KOlla om plats finns åt vänster (att inte brädet är slut).
-            KOlla vad som finns där. 
-            Om samma - gör om gå vidare till bräde tar slut eller annan symbol. 
-            Om annat - kolla om plats finns åt höger. 
-            Kolla vad om finns där. 
-            Om samma - gör om gå vidare till bräde tar slut eller annan symbol. 
-            
-            Samtidigt: logga hur många i rad. 
-            Jämför med antal man ska ha i rad. 
-            Om vinst - bryt och skicka true. 
-            Om inte - gör inget. 
-
-
-            Sedan vertikalt. Samma procedur. 
-            Sedan diagonalt ena hållet. Samma procedur. 
-            Sedan diagonalt andra hållet. Samma procedur. 
-
-
-
-
-        */
-
-
-
-
-        boolean isWin = false;
-        return isWin;
+    private int checkLeft(int row, int column){
+        int localNumbersinrow = 0;
+        int j = column - 1;
+        while(checkSpaceValid(row, j)){
+            if(this.table[row][j] == this.table[row][column]){
+                localNumbersinrow++;
+                j--;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersinrow;
     }
 
-    //Konvertera rad + kolumn till nummer
-    public int convertCoordinateToNumber(int row, int column){
-    // --------Felhantering för avgränsning om rad/kolum när fel? Tex skicka tillbaka 0 eller -1 om rad eller kolumn inte stämmer 
-        int number =(row - 1)*this.numberOfColumns + column;
-        return number;
+    private int checkRight(int row, int column){
+        int localNumbersinrow = 0;
+        int j = column + 1;
+        while(checkSpaceValid(row, j)){
+            if(this.table[row][j] == this.table[row][column]){
+                localNumbersinrow++;
+                j++;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersinrow;
     }
-  
 
+    private int checkUpLeft(int row, int column){
+        int localNumbersinrow = 0;
+        int i = row - 1;
+        int j = column - 1;
+        while(checkSpaceValid(i, j)){
+            if(this.table[i][j] == this.table[row][column]){
+                localNumbersinrow++;
+                i--;
+                j--;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersinrow;
+    }
+
+    private int checkDownRight(int row, int column){
+        int localNumbersinrow = 0;
+        int i = row + 1;
+        int j = column + 1;
+        while(checkSpaceValid(i, j)){
+            if(this.table[i][j] == this.table[row][column]){
+                localNumbersinrow++;
+                i++;
+                j++;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersinrow;
+    }
+
+
+    private int checkUpRight(int row, int column){
+        int localNumbersinrow = 0;
+        int i = row - 1;
+        int j = column + 1;
+        while(checkSpaceValid(i, j)){
+            if(this.table[i][j] == this.table[row][column]){
+                localNumbersinrow++;
+                i--;
+                j++;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersinrow;
+    }
+
+    private int checkDownLeft(int row, int column){
+        int localNumbersinrow = 0;
+        int i = row + 1;
+        int j = column - 1;
+        while(checkSpaceValid(i, j)){
+            if(this.table[i][j] == this.table[row][column]){
+                localNumbersinrow++;
+                i++;
+                j--;
+            }else{ 
+                break;
+            }
+        }
+        return localNumbersinrow;
+    }
+
+    private void printRow(int x){
+        System.out.print((x+1) + " | ");
+        for(char a : table[x]){
+            System.out.print(a + " | ");
+        }
+        System.out.println("");
+    }
+
+    private void printColumnNumbers(){
+        System.out.print("  | ");
+        for(int m = 1; m <= this.table[0].length; m++){
+            System.out.print(m + " | ");
+        } 
+        System.out.println("");
+    }
+
+    private void printLine(){
+        for(int m = 0; m <= this.table[0].length; m++){
+            System.out.print("----");
+        }
+        System.out.println("");
+    }
 
 
 // ------- Getters and setters --------
+
 
     public String getName() {
         return name;
@@ -166,25 +275,30 @@ public class Board {
         this.name = name;
     }
  
-    public int getnumberOfRows() {
-        return this.numberOfRows;
+    public char[][] getTable() {
+        return this.table;
+    }
+    
+    public void setTable(char[][] table) {
+        this.table = table;
+    }
+    
+    public int getSpacesTaken() {
+        return this.spacesTaken;
+    }
+    
+    public void setSpacesTaken(int spacesTaken) {
+        this.spacesTaken = spacesTaken;
+    }
+    
+    public int getSpacesTotal() {
+        return this.spacesTotal;
+    }
+    
+    public void setSpacesTotal(int spacesTotal) {
+        this.spacesTotal = spacesTotal;
     }
 
-    public void setnumberOfRows(int numberOfRows) {
-        this.numberOfRows = numberOfRows;
-    }
-
-    public int getnumberOfColumns() {
-        return this.numberOfColumns;
-    }
-
-    public void setnumberOfColumns(int numberOfColumns) {
-        this.numberOfColumns = numberOfColumns;
-    }
-
-    public boolean isIsFull() {
-        return this.isFull;
-    }
 
     public boolean getIsFull() {
         return this.isFull;
