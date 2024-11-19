@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class BOardTestMain {
     public static void main(String[] args) {
         Board myBoard = new Board();
-        myBoard.create("Mitt Bräde", 4, 8);
+        myBoard.create("Mitt Bräde", 30, 20);
         boolean gameOn = true;
 
 

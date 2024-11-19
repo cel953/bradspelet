@@ -39,10 +39,9 @@ public class Board {
 
  
 //Skriv ut bräde i terminal
-    public void print(){                            //TODO snygga till utskrift! siffror hamnar snett om det är tvåsiffrigt
+    public void print(){                            
     System.out.println("Here is your board!");
         
-    
         this.printColumnNumbers();
         this.printLine();
         for(int x = 0; x < this.table.length; x++){
@@ -50,7 +49,6 @@ public class Board {
             this.printLine();
         }
         System.out.println("");
-
     }
     
 //Kolla om space is valid - här kontrolleras att platsen finns med på brädet
@@ -277,7 +275,6 @@ public class Board {
             }else{
                 System.out.print(m + "| ");
             }
-            
         } 
         System.out.println("");
     }
