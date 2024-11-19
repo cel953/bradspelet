@@ -47,7 +47,7 @@ public class Game {
     // Loop för spelet
     private void gameLoop() {
         while (gameOn) {
-            System.out.println("\n" + currentPlayer.getName() + " tur (" + currentPlayer.getSymbol() + ")");
+            System.out.println("\n" + currentPlayer.getName() + " tur. (" + currentPlayer.getSymbol() + ")");
             gameBoard.print();
 
             int row = 0, col = 0;
@@ -69,7 +69,7 @@ public class Game {
                         System.out.println("Ogiltigt. Vängeligen försök igen.");
                     }
                 } catch (InputMismatchException e) { // För ogitlig inmatning
-                    System.out.println("Ogitligt väde. Vänligen ange nummer endast.");
+                    System.out.println("Ogitligt värde. Vänligen ange nummer endast.");
                     scanner.nextLine(); // Rensar scannern
                 }
             }
