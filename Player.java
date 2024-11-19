@@ -13,7 +13,7 @@ public class Player {
         this.name = name;
         symbol = 'n';
         this.isHuman = isHuman;
-        stats = new int[3][3]; // 3 gamemodes, 3 stats = {wins, draws, losses}
+        stats = new int[3][2]; // 3 gamemodes, 2 stats = {wins, draws}
 
     }
 
@@ -73,7 +73,7 @@ public class Player {
     }
 
     public void chooseSymbol(Player[] playerList) {
-
+        // missing playerqueue atm
         System.out.println("Välj vilken symbol du vill ha " + playerList[0] + "!");
         System.out.println("1. X");
         System.out.println("2. O");
@@ -108,12 +108,10 @@ public class Player {
     public int getDraws(int gameMode) {
         return stats[gameMode][1];
     }
-    public int getLosses(int gameMode) {
-        return stats [gameMode][2];
-    }
+
     public int getTotalStat(int stat) {
         int total = 0;
-        for (int gameMode = 0; gameMode < this.stats.length; gameMode++) 
+        for (int gameMode = 0; gameMode < this.stats[0].length; gameMode++) 
             total =+ this.stats[gameMode][stat];
         return total;
     }
@@ -124,9 +122,7 @@ public class Player {
     public void isDraw(int gameMode) {
         this.stats[gameMode][1] =+ 1;
     }
-    public void hasLost(int gameMode) {
-        this.stats[gameMode][2] =+ 1;
-    }
+
 
     //-------Convenient choice handler-------
 
