@@ -17,15 +17,15 @@ public class Board {
     
                                             //TODO ----------Felhantering -- kan inte vara 0, hantera här eller där det skickas?
     
-    public void create(){                                       //Constructor 1
+    public void create(){                                       //Constructor 1 - default name, default size 3x3
         this.create("Gameboard", 3, 3);
     }
 
-    public void create(String Name){                            //Constructor 2
+    public void create(String Name){                            //Constructor 2 - custom name, default size 3x3
         this.create(Name, 3, 3);
     }
     
-    public void create(String name, int rows, int columns){     //Constructor 3
+    public void create(String name, int rows, int columns){     //Constructor 3 - custom name, custom size
         this.table = new char[rows][columns];
         this.setName(name);
         this.setSpacesTotal(rows*columns);
@@ -257,7 +257,12 @@ public class Board {
     }
 
     private void printRow(int x){
+        if(x < 9){
+            System.out.print(" ");
+        }
         System.out.print((x+1) + " | ");
+
+
         for(char a : table[x]){
             System.out.print(a + " | ");
         }
@@ -265,9 +270,14 @@ public class Board {
     }
 
     private void printColumnNumbers(){
-        System.out.print("  | ");
+        System.out.print("   | ");
         for(int m = 1; m <= this.table[0].length; m++){
-            System.out.print(m + " | ");
+            if(m <= 9){
+                System.out.print(m + " | ");
+            }else{
+                System.out.print(m + "| ");
+            }
+            
         } 
         System.out.println("");
     }
