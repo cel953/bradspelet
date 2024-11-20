@@ -66,7 +66,7 @@ public class Game {
                         validMove = true;
 
                     } else {
-                        System.out.println("Ogiltigt. Vänligen försök igen.");
+                        System.out.println("Ogiltigt. Vängeligen försök igen.");
                     }
 
                 } catch (InputMismatchException e) { // För ogitlig inmatning
