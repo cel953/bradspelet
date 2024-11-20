@@ -49,7 +49,6 @@ public class Game {
         while (gameOn) {
             System.out.println("\n" + currentPlayer.getName() + " tur. (" + currentPlayer.getSymbol() + ")");
             gameBoard.print();
-
             int row = 0, col = 0;
             boolean validMove = false;
 
@@ -65,9 +64,11 @@ public class Game {
                     if (gameBoard.checkSpaceValid(row, col) && gameBoard.checkSpaceAvailable(row, col)) {
                         gameBoard.placeSymbol(row, col, currentPlayer.getSymbol());
                         validMove = true;
+
                     } else {
-                        System.out.println("Ogiltigt. Vängeligen försök igen.");
+                        System.out.println("Ogiltigt. Vänligen försök igen.");
                     }
+
                 } catch (InputMismatchException e) { // För ogitlig inmatning
                     System.out.println("Ogitligt värde. Vänligen ange nummer endast.");
                     scanner.nextLine(); // Rensar scannern
@@ -78,12 +79,14 @@ public class Game {
             if (gameBoard.checkIfWin(row, col, calculateWinCondition())) {
                 System.out.println("\n" + currentPlayer.getName() + " vann!");
                 gameBoard.print();
-                currentPlayer.increaseStats(gameID, 0);
+                currentPlayer.increaseStats(gameID, 0); // skriv om metodnamn för poängställning
                 endGame();
-            } else if (gameBoard.isFull()) { // Kontrollerar om brädet är fullt
+
+            } else if (gameBoard.getIsFull()) { // Kontrollerar om brädet är fullt,
                 System.out.println("\nSpelet är oavgjort!");
-                currentPlayer.increaseStats(gameID, 1);
+                currentPlayer.increaseStats(gameID, 1); // skriv om metodnamn för poängställning
                 endGame();
+
             } else {
                 switchTurn();
             }
