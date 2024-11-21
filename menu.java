@@ -1,23 +1,12 @@
 
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class menu {
-    public int currentGameID;
-
-  public static void menyval() {
-
-        // TODO gör menyn till en egen metod - KLART
     
-        // TODO hämta metod om att fråga om namn - addPlayer
-        // TODO returnera en arraylist Players
-
-
-
-        // Menyval för spelaren
-        System.out.println("Hej och välkommen till brädspelssamlingen TicTacToe!");
-        System.out.println();
+    public static int selectGame() {
 
         System.out.println("Du kan välja på dessa spel");
         System.out.println("1. Tre i rad mot dator");
@@ -26,19 +15,21 @@ public class menu {
         System.out.println("4. Fem i rad mot en motståndare");
 
         int chooseGame = 0;
+        int currentGameId = 0;
         boolean choseGameCorrecly = false;
-        Scanner scanner = new Scanner(System.in);
+        Scanner playerPickGame = new Scanner(System.in);
+    
 
         while (!choseGameCorrecly) {
 
             System.out.println("Skriv in 1, 2, 3 eller 4 beroende på vilket spel du vill spela");
             try {
 
-                chooseGame = scanner.nextInt();
+                chooseGame = playerPickGame.nextInt();
 
             } catch (InputMismatchException e) {
                 System.out.println("Du måste skriva in ett heltal");
-                scanner.nextLine(); // Rensar bort ogiltiga symboler i scannern
+                playerPickGame.nextLine(); // Rensar bort ogiltiga symboler i scannern
                 continue;
 
             }
@@ -46,27 +37,25 @@ public class menu {
             switch (chooseGame) {
                 case 1:
                     choseGameCorrecly = true;
-                    System.out.println("Du valde att spela Tre i rad!");
-                    // sedan ska den kalla på metoden för att komma till 3 i rad
-                    break;
+                    currentGameId = 1; 
+                    return currentGameId;
 
                 case 2:
                     choseGameCorrecly = true;
-                    System.out.println("Du valde att spela Fyra i rad!");
-                    // sedan ska den kalla på metoden för att komma till 4 i rad
-                    break;
+                    currentGameId = 2; 
+                    return currentGameId;
 
                 case 3:
                     choseGameCorrecly = true;
-                    System.out.println("Du valde att spela Fem  i rad!");
-                    // sedan ska den kalla på metoden för att komma till 3 i rad
-                    break;
+                    //Ropa på metod som skapa spelarlista med en spelare
+                    currentGameId = 3; 
+                    return currentGameId;
 
                 case 4:
                     choseGameCorrecly = true;
-                    System.out.println("Du valde att spela Fem  i rad mot en motståndare!");
-                    // sedan ska den kalla på metoden för att komma till 3 i rad
-                    break;
+                    currentGameId = 4; 
+                    return currentGameId;
+
                 default:
                     System.out.println(
                             "Spel med siffan " + chooseGame + " finns tyvärr inte i listan. Välj mellan 1,2 eller 3");
@@ -75,7 +64,10 @@ public class menu {
             }
 
         }
-        scanner.close();
+        playerPickGame.close();
+        return 0;
+ 
+
     }
 
 }
