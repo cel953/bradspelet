@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.ArrayList;
 
+
 public class main {
 
     public static void main(String[] args) {
@@ -13,7 +14,8 @@ public class main {
         // TODO returnera en arraylist Players
 
         ArrayList<Player> players = askForPlayers();  
-        selectAndAtartGame();
+        selectAndStartGame();
+        
 
         // Kalla på tre i rad
         // kalla på fyra i rad
@@ -41,7 +43,7 @@ public class main {
 
         // Antlet valda spelare ska skapas
         Player player1 = new Player("Player 1", true);
-        Player player2 = new Player("Player 2", false); // denna nåste justeras om man spelar multispelare
+        Player player2 = new Player("Player 2", false); // denna måste justeras om man spelar multispelare
 
         ArrayList<Player> playerList = new ArrayList<Player>();
         playerList.add(player1);
@@ -60,7 +62,7 @@ public class main {
 
     }
 
-    public static void selectAndAtartGame() {
+    public static void selectAndStartGame() {
 
         System.out.println("Du kan välja på dessa spel");
         System.out.println("1. Tre i rad mot dator");
@@ -90,6 +92,7 @@ public class main {
                 case 1:
                     choseGameCorrecly = true;
                     System.out.println("Du valde att spela Tre i rad!");// denna ska bort
+                    
                     // sedan ska den kalla på metoden för att komma till 3 i rad
                     break;
 
