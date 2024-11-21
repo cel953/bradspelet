@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.ArrayList;
 
 public class Player {
     
@@ -21,7 +22,7 @@ public class Player {
 
     public Player addPlayer(boolean isHuman) {
 
-        String name = ("Player " + (1 + Game.length(Game.playOrder)));  // Missing player collection and/or access
+        String name = ("Player " + (1 + main.players.size()));  // Missing player collection and/or access
         
         
         if (isHuman == true) {
@@ -45,13 +46,18 @@ public class Player {
 
     public String chooseName() {
 
-        // Error handling needed, min and max length etc
+        // Error handling needed, min and max length etc (atleast 2 non-space to avoid confusion with symbol and name)
+        // Avoid duplicate names, use HashSet?
 
         System.out.println("Vad vill du ha för namn på din spelare?");
         Scanner scanner = new Scanner(System.in);
         String name = scanner.nextLine();
         scanner.close();
         return name;
+    }
+
+    //public String goodName() {      //name length, name taken?
+
     }
 
     //-------Name, Symbol and isHuman-------
@@ -72,31 +78,7 @@ public class Player {
         return this.isHuman;
     }
 
-    public void chooseSymbol(Player[] playerList) {
-        // missing playerqueue atm
-        System.out.println("Välj vilken symbol du vill ha " + playerList[0] + "!");
-        System.out.println("1. X");
-        System.out.println("2. O");
-        int choice = intInputHandler(2);
 
-        switch (choice) {
-            case 1:
-                playerList[0].setSymbol('X');
-                playerList[1].setSymbol('O');
-
-            case 2:
-                playerList[0].setSymbol('O');
-                playerList[1].setSymbol('X');
-        }
-
-        System.out.println("Spelare " + playerList[0] + " har valt symbol " + playerList[0].getSymbol() + ".");
-        System.out.println("Spelare " + playerList[1] + " har blivit tilldelad " + playerList[1].getSymbol() + ".");
-    }
-
-
-        // Filter so that if playing vs the computer, the player always chooses symbol
-        
-    
 
 
     //-------Stats-------
@@ -144,3 +126,33 @@ public class Player {
     }
 
 }
+
+
+
+/*-------Archive-------
+
+    public void chooseSymbol(Player[] players) {
+        // missing playerqueue atm
+        System.out.println("Välj vilken symbol du vill ha " + players[0] + "!");
+        System.out.println("1. X");
+        System.out.println("2. O");
+        int choice = intInputHandler(2);
+
+        switch (choice) {
+            case 1:
+                playerList[0].setSymbol('X');
+                playerList[1].setSymbol('O');
+
+            case 2:
+                playerList[0].setSymbol('O');
+                playerList[1].setSymbol('X');
+        }
+
+        System.out.println("Spelare " + playerList[0] + " har valt symbol " + playerList[0].getSymbol() + ".");
+        System.out.println("Spelare " + playerList[1] + " har blivit tilldelad " + playerList[1].getSymbol() + ".");
+    }
+
+
+        // Filter so that if playing vs the computer, the player always chooses symbol
+        
+    
