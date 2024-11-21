@@ -286,6 +286,10 @@ public class Board {
         System.out.println("");
     }
 
+    public boolean checkIfFull() {
+        return this.getisFull();
+    }
+
 
 // ------- Getters and setters --------
 
@@ -321,7 +325,6 @@ public class Board {
     public void setSpacesTotal(int spacesTotal) {
         this.spacesTotal = spacesTotal;
     }
-
 
     public boolean getIsFull() {
         return this.isFull;
