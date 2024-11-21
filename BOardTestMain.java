@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class BOardTestMain {
     public static void main(String[] args) {
         Board myBoard = new Board();
-        myBoard.create("Mitt Bräde", 3, 3);
+        myBoard.create("Mitt Bräde", 30, 20);
         boolean gameOn = true;
 
 
@@ -32,7 +32,7 @@ public class BOardTestMain {
             myBoard.placeSymbol(row, column, symbol);
             myBoard.print();
 
-            if (myBoard.checkIfWin(row, column, 3)) {
+            if (myBoard.checkIfWin(row, column, 15)) {
                 System.out.println("somwbody's a winner!");
                 gameOn = false;
                 
