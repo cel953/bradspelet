@@ -4,14 +4,20 @@ import java.util.ArrayList;
 
 
 public class main {
+    
+    protected static Scanner ultimateScanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         
         
         System.out.println("Hej och välkommen till Swedish Test Mafias brädspelssamling!");
         System.out.println();
+        
         int gameID = menu.selectGame();
+        
+
         startGame(gameID);
+        
 
         
         // TODO hämta metod om att fråga om namn - addPlayer
@@ -30,7 +36,7 @@ public class main {
         // fortsätta - starta ny runda
         // tillbaka till menyn
         // Avsluta spelet
-
+    ultimateScanner.close();
     }
 
 
@@ -49,8 +55,9 @@ public class main {
                     System.out.println("Du valde att spela Tre i rad mot dator!");
                     //Ropa på metod som skapa spelarlista med en spelare + dator
                     players = createPlayerList(1, 1);
-                    Player.choose("name", players);
                     Player.choose("symbol", players);
+                    Player.choose("name", players);
+
 
                     // sedan ska den kalla på metoden för att komma till 3 i rad
                     break;
