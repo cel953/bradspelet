@@ -17,22 +17,18 @@ public class menu {
         int chooseGame = 0;
         int currentGameId = 0;
         boolean choseGameCorrecly = false;
-     //   Scanner menuScanner = new Scanner(System.in);
-    
 
         while (!choseGameCorrecly) {
 
             System.out.println("Skriv in 1, 2, 3 eller 4 beroende på vilket spel du vill spela");
             try {
 
-                chooseGame = Integer.valueOf(main.ultimateScanner.nextLine());
-                
+                chooseGame = main.gameScanner.nextInt();
+                main.gameScanner.nextLine(); // Rensar bort ogiltiga symboler i scannern
 
             } catch (InputMismatchException e) {
                 System.out.println("Du måste skriva in ett heltal");
-                main.ultimateScanner.nextLine(); // Rensar bort ogiltiga symboler i scannern
                 continue;
-
             }
 
             switch (chooseGame) {
@@ -48,7 +44,6 @@ public class menu {
 
                 case 3:
                     choseGameCorrecly = true;
-                    //Ropa på metod som skapa spelarlista med en spelare
                     currentGameId = 3; 
                     return currentGameId;
 
@@ -61,14 +56,9 @@ public class menu {
                     System.out.println(
                             "Spel med siffan " + chooseGame + " finns tyvärr inte i listan. Välj mellan 1,2 eller 3");
                     break;
-
             }
-
         }
-        
+
         return 0;
- 
-
     }
-
 }
