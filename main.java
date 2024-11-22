@@ -5,26 +5,21 @@ import java.util.ArrayList;
 
 public class main {
     protected static Scanner gameScanner = new Scanner(System.in);
-    
+    protected static ArrayList<Player> players = new ArrayList<>();
 
     public static void main(String[] args) {
-        
-        ArrayList<Player> players = new ArrayList<>();
-
-        while (true) {
+            while (true) {
             System.out.println("Hej och välkommen till Swedish Test Mafias brädspelssamling!");
             System.out.println();
             int gameID = menu.selectGame();
-            startGame(gameID, players);
+            startGame(gameID);
         }
     }
 
 
-    public static void startGame(int gameID, ArrayList<Player> players) {
+    public static void startGame(int gameID) {
         Game game = new Game(gameID);
         int chooseGame = 0;
-            
-        
            switch (gameID) {
                 case 1:
                     System.out.println("Du valde att spela Tre i rad mot dator!");
@@ -34,7 +29,7 @@ public class main {
                         Player.chooseName(players);
                         Player.chooseSymbol(players);
                     }
-                    game.gameFlow(gameID, players);
+                    game.gameFlow(gameID);
                     break;
 
                 case 2:
@@ -45,7 +40,7 @@ public class main {
                         Player.chooseName(players);
                         Player.chooseSymbol(players);
                     }
-                    game.gameFlow(gameID, players);
+                    game.gameFlow(gameID);
                     break;
 
                 case 3:
@@ -56,7 +51,7 @@ public class main {
                         Player.chooseName(players);
                         Player.chooseSymbol(players);
                     }
-                    game.gameFlow(gameID, players);
+                    game.gameFlow(gameID);
                     break;
 
                 case 4:
@@ -66,7 +61,7 @@ public class main {
                         Player.chooseName(players);
                         Player.chooseSymbol(players);
                     }
-                    game.gameFlow(gameID, players);
+                    game.gameFlow(gameID);
                     break;
                 default:
                     System.out.println(
