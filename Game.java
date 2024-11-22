@@ -4,7 +4,6 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Scanner;
 
 
 public class Game {
@@ -13,40 +12,68 @@ public class Game {
     private Queue<Player> playOrder;
     private Player currentPlayer;
     private Board gameBoard;
-    private Scanner scanner;
 
     public Game(int gameID) {
         this.gameID = gameID;
         this.gameOn = true;
-        this.scanner = new Scanner(System.in);        
     }
 
-    // Metod för slumpmässig turordning
-    public void createRandomOrder(ArrayList<Player> players) {
-        playOrder = new LinkedList<>(); // Skapar spelkön
-        List<Player> shuffledPlayers = new ArrayList<>(players); // Kopierar kölistan för slumpmässig turordning
-        Collections.shuffle(shuffledPlayers); 
-        playOrder.addAll(shuffledPlayers);
+
+    public void gameFlow(int gameID, ArrayList<Player> players){
+        this.gameBoard = new Board(); // Instans av brädet
+        switch (gameID) {
+            case 1:
+                gameBoard.create("Spelbräde", 3, 3);        
+                break;
+            case 2:
+                gameBoard.create("Spelbräde", 3, 3);        
+                break;
+            case 3:
+                gameBoard.create("Spelbräde", 10, 10);        
+                break;
+            case 4:
+                gameBoard.create("Spelbräde", 20, 20);        
+                break;            
+            default:
+                break;
+        }
+          createRandomOrder(players);
+          gameLoop();
+
     }
 
-    // Metod för att byta spelare i turordning
-    public void switchTurn() {
-        currentPlayer = playOrder.poll();
-        playOrder.offer(currentPlayer);
-    }
 
     // Metod som skapar brädet och startar spelet
-    public void startGame(ArrayList<Player> players, int boardHeight, int boardWidth) {
+    public void gameSetup(int gameID, ArrayList<Player> players) {
+
+        gameBoard = new Board(); // Instans av brädet
+        switch (this.gameID) {
+            case 1:
+                gameBoard.create("Spelbräde", 3, 3);        
+                break;
+            case 2:
+                gameBoard.create("Spelbräde", 3, 3);        
+                break;
+            case 3:
+                gameBoard.create("Spelbräde", 10, 10);        
+                break;
+            case 4:
+                gameBoard.create("Spelbräde", 20, 20);        
+                break;            
+            default:
+                break;
+        }
+    
         createRandomOrder(players);
         currentPlayer = playOrder.peek(); // Tar ej bort de i spelkön
-        gameBoard = new Board(); // Instans av brädet
-        gameBoard.create("Spelbräde", boardHeight, boardWidth);
         gameLoop();
     }
 
     // Loop för spelet
     private void gameLoop() {
+        
         while (gameOn) {
+            currentPlayer = playOrder.peek(); // Tar ej bort de i spelkön
             System.out.println("\n" + currentPlayer.getName() + "s tur. (" + currentPlayer.getSymbol() + ")");
             System.out.println();
             gameBoard.print();
@@ -57,9 +84,9 @@ public class Game {
             while (!validMove) {
                 try {
                     System.out.println("Rad: ");
-                    row = scanner.nextInt();
+                    row = main.gameScanner.nextInt() -1;
                     System.out.println("Kolumn: "); 
-                    col = scanner.nextInt();
+                    col = main.gameScanner.nextInt() -1;
                     System.out.println();
 
                     // Kollar om platsen är tillgänlig
@@ -75,7 +102,7 @@ public class Game {
                 } catch (InputMismatchException e) { // För ogitlig inmatning
                     System.out.println("Ogitligt värde, vänligen mata endast in nummer.");
                     System.out.println();
-                    scanner.nextLine(); // Rensar scannern
+                    main.gameScanner.nextLine(); // Rensar scannern
                 }
             }
 
@@ -84,13 +111,13 @@ public class Game {
                 System.out.println("\n" + currentPlayer.getName() + " vann!");
                 System.out.println();
                 gameBoard.print();
-                currentPlayer.increaseStats(gameID, 0); // skriv om metodnamn för poängställning
+ //               currentPlayer.increaseStats(gameID, 0); // skriv om metodnamn för poängställning
                 endGame();
 
             } else if (gameBoard.getIsFull()) { // Kontrollerar om brädet är fullt,
                 System.out.println("\nSpelet är oavgjort!");
                 System.out.println();
-                currentPlayer.increaseStats(gameID, 1); // skriv om metodnamn för poängställning
+ //               currentPlayer.increaseStats(gameID, 1); // skriv om metodnamn för poängställning
                 endGame();
 
             } else {
@@ -99,17 +126,24 @@ public class Game {
         }
     }
 
+     // Metod för slumpmässig turordning
+     public void createRandomOrder(ArrayList<Player> players) {
+        this.playOrder = new LinkedList<>(); // Skapar spelkön
+        List<Player> shuffledPlayers = new ArrayList<>(players); // Kopierar kölistan för slumpmässig turordning
+        Collections.shuffle(shuffledPlayers); 
+        this.playOrder.addAll(shuffledPlayers);
+    }
+
+    // Metod för att byta spelare i turordning
+    public void switchTurn() {
+        currentPlayer = playOrder.poll();
+        playOrder.offer(currentPlayer);
+    }
+  
     private void endGame() {
         gameOn = false;
         System.out.println("Game over");
         System.out.println();
-        closeScanner();
-    }
-
-    private void closeScanner() {
-        if (scanner != null) {
-            scanner.close();
-        }
     }
 
     private int calculateWinCondition() {

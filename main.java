@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class main {
     
-    protected static Scanner ultimateScanner = new Scanner(System.in);
+    protected static Scanner gameScanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         
@@ -14,8 +14,6 @@ public class main {
         System.out.println();
         
         int gameID = menu.selectGame();
-        
-
         startGame(gameID);
         
 
@@ -36,27 +34,24 @@ public class main {
         // fortsätta - starta ny runda
         // tillbaka till menyn
         // Avsluta spelet
-    ultimateScanner.close();
+    gameScanner.close();
     }
 
 
     public static void startGame(int gameID) {
-
+        Game game = new Game(gameID);
         int chooseGame = 0;
-        boolean choseGameCorrecly = false;
         ArrayList<Player> players = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-    
-
-
 
             switch (gameID) {
                 case 1:
                     System.out.println("Du valde att spela Tre i rad mot dator!");
                     //Ropa på metod som skapa spelarlista med en spelare + dator
                     players = createPlayerList(1, 1);
-                    Player.choose("symbol", players);
-                    Player.choose("name", players);
+                    Player.chooseName(players);
+                    Player.chooseSymbol(players);
+                    game.gameFlow(gameID, players);
 
 
                     // sedan ska den kalla på metoden för att komma till 3 i rad
@@ -68,26 +63,28 @@ public class main {
                     //Ropa på metod som skapa spelarlista med en spelare
                     // sedan ska den kalla på metoden för att komma till 4 i rad
                     players = createPlayerList(2, 0);
-                    Player.choose("name", players);
-                    Player.choose("symbol", players);
+                    Player.chooseName(players);
+                    Player.chooseSymbol(players);
+                    game.gameFlow(gameID, players);
                     break;
 
                 case 3:
                     System.out.println("Du valde att spela Fyra i rad mot en motståndare!");    
                     //Ropa på metod som skapa spelarlista med en spelare
                     players = createPlayerList(2, 0);
-                    Player.choose("name", players);
-                    Player.choose("symbol", players);
+                    Player.chooseName(players);
+                    Player.chooseSymbol(players);
+                    game.gameFlow(gameID, players);
+                    
                     // sedan ska den kalla på metoden för att komma till 3 i rad
                     break;
 
                 case 4:
-                    choseGameCorrecly = true;
                     System.out.println("Du valde att spela Fem  i rad mot en motståndare!"); //denna ska bort
                     players = createPlayerList(2, 0);
-                    Player.choose("name", players);
-                    Player.choose("symbol", players);
-                    // sedan ska den kalla på metoden för att komma till 3 i rad
+                    Player.chooseName(players);
+                    Player.chooseSymbol(players);                    // sedan ska den kalla på metoden för att komma till 3 i rad
+                    game.gameFlow(gameID, players);
                     break;
                 default:
                     System.out.println(

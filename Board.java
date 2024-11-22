@@ -287,7 +287,7 @@ public class Board {
     }
 
     public boolean checkIfFull() {
-        return this.getisFull();
+        return this.getIsFull();
     }
 
 
