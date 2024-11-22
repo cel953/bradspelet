@@ -49,29 +49,21 @@ public class Player {
 
     public static void choose(String option, ArrayList<Player> playerList){
             
-        Scanner scanner = new Scanner(System.in);
+//        Scanner scanner = new Scanner(System.in);
         Player tempPlayer = new Player();
         switch (option) {
-
-            case "name":
-                for (int i = 0; i < playerList.size(); i++){
-
-                    tempPlayer = playerList.get(i);
-                    if(tempPlayer.getisHuman()){
-                        System.out.println("Vad vill du ha för namn på din spelare?");
-                        tempPlayer.setName(scanner.nextLine()); //Felhantering för längd etc
-                        System.out.println("Spelare " + i+1 + " har valt namn " + tempPlayer.getName());
-                    }
-                }
-                
-                break;
-
+            
                 case "symbol":
+                    
                     tempPlayer = playerList.get(0);
                     System.out.println("Välj vilken symbol du vill ha " + tempPlayer.getName() + "!");
                     System.out.println("1. X");
                     System.out.println("2. O");
-                    int choice = scanner.nextInt();
+
+                    
+                    int choice = main.ultimateScanner.nextInt();
+                    main.ultimateScanner.nextLine();
+                    
             
             //intInputHandler(2);
     
@@ -91,12 +83,29 @@ public class Player {
                     default:
                         break;
                     }
+                
+                break;
+
+                case "name":
+                
+                for (int i = 0; i < playerList.size(); i++){
+
+                    tempPlayer = playerList.get(i);
+                    if(tempPlayer.getisHuman()){
+                        System.out.println("Vad vill du ha för namn på din spelare?");
+                        
+                                tempPlayer.setName(main.ultimateScanner.nextLine()); //Felhantering för längd etc  
+                                
+                        System.out.println("Spelare " + (i+1) + " har valt namn " + tempPlayer.getName());
+                    }
+                }
+                
                 break;
 
             default:
                 break;
-        }scanner.close();
-        
+
+            } 
         
     }
 /* 
