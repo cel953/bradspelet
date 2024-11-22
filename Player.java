@@ -1,28 +1,30 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.ArrayList;
 
 public class Player {
     
-    private String name;
+    private String name = "New player";
     private char symbol;
     private boolean isHuman;
     private int[][] stats; 
+    
 
-
-    public Player(String name, boolean isHuman) {
+//Används ej
+    public Player createPlayer(String name, boolean isHuman) {
         this.name = name;
-        symbol = 'n';
+        this.symbol = ' ';
         this.isHuman = isHuman;
-        stats = new int[3][2]; // 3 gamemodes, 2 stats = {wins, draws}
+        stats = new int[3][3]; // 3 gamemodes, 3 stats = {wins, draws, losses}
 
     }
 
     //-------New players-------
-
+/*
     public Player addPlayer(boolean isHuman) {
 
-        String name = ("Player " + (1 + main.players.size()));  // Missing player collection and/or access
+        String name = ("Player " + (1 + Game.length(Game.playOrder)));  // Missing player collection and/or access
         
         
         if (isHuman == true) {
@@ -43,42 +45,114 @@ public class Player {
         }
         return new Player(name, isHuman);
         }
+*/
 
+    public static void choose(String option, ArrayList<Player> playerList){
+            
+        Scanner scanner = new Scanner(System.in);
+        Player tempPlayer = new Player();
+        switch (option) {
+
+            case "name":
+                for (int i = 0; i < playerList.size(); i++){
+
+                    tempPlayer = playerList.get(i);
+                    if(tempPlayer.getisHuman()){
+                        System.out.println("Vad vill du ha för namn på din spelare?");
+                        tempPlayer.setName(scanner.nextLine()); //Felhantering för längd etc
+                        System.out.println("Spelare " + i+1 + " har valt namn " + tempPlayer.getName());
+                    }
+                }
+                
+                break;
+
+                case "symbol":
+                    tempPlayer = playerList.get(0);
+                    System.out.println("Välj vilken symbol du vill ha " + tempPlayer.getName() + "!");
+                    System.out.println("1. X");
+                    System.out.println("2. O");
+                    int choice = scanner.nextInt();
+            
+            //intInputHandler(2);
+    
+                switch (choice) {
+                    case 1:
+                        tempPlayer.setSymbol('X');
+                        System.out.println("Spelare " + tempPlayer + " har valt symbol " + tempPlayer.getSymbol() + ".");
+                        tempPlayer = playerList.get(1);
+                        tempPlayer.setSymbol('O');
+                        System.out.println("Spelare " + tempPlayer + " har blivit tilldelad " + tempPlayer.getSymbol() + ".");
+                    case 2:
+                        tempPlayer.setSymbol('O');
+                        System.out.println("Spelare " + tempPlayer + " har valt symbol " + tempPlayer.getSymbol() + ".");
+                        tempPlayer = playerList.get(1);
+                        tempPlayer.setSymbol('X');
+                        System.out.println("Spelare " + tempPlayer + " har blivit tilldelad " + tempPlayer.getSymbol() + ".");
+                    default:
+                        break;
+                    }
+                break;
+
+            default:
+                break;
+        }scanner.close();
+        
+        
+    }
+/* 
     public String chooseName() {
 
-        // Error handling needed, min and max length etc (atleast 2 non-space to avoid confusion with symbol and name)
-        // Avoid duplicate names, use HashSet?
+        // Error handling needed, min and max length etc
 
         System.out.println("Vad vill du ha för namn på din spelare?");
-        Scanner scanner = new Scanner(System.in);
         String name = scanner.nextLine();
         scanner.close();
-        return name;
-    }
-
-    //public String goodName() {      //name length, name taken?
-
+        return name;                
     }
 
     //-------Name, Symbol and isHuman-------
 
     public String getName() {
-        return name;
+        return this.name;
     }
     public void setName(String name) {
         this.name = name;
     }
     public char getSymbol() {
-        return symbol;
+        return this.symbol;
     }
     public void setSymbol(char symbol) {
         this.symbol = symbol;
     }
-    public boolean isHuman() {
+    public boolean getisHuman() {
         return this.isHuman;
     }
 
+    public void chooseSymbol(Player[] playerList) {
 
+        System.out.println("Välj vilken symbol du vill ha " + playerList[0] + "!");
+        System.out.println("1. X");
+        System.out.println("2. O");
+        int choice = intInputHandler(2);
+
+        switch (choice) {
+            case 1:
+                playerList[0].setSymbol('X');
+                playerList[1].setSymbol('O');
+
+            case 2:
+                playerList[0].setSymbol('O');
+                playerList[1].setSymbol('X');
+        }
+
+        System.out.println("Spelare " + playerList[0] + " har valt symbol " + playerList[0].getSymbol() + ".");
+        System.out.println("Spelare " + playerList[1] + " har blivit tilldelad " + playerList[1].getSymbol() + ".");
+    }
+
+
+        // Filter so that if playing vs the computer, the player always chooses symbol
+        
+    
 
 
     //-------Stats-------
@@ -107,8 +181,8 @@ public class Player {
 
 
     //-------Convenient choice handler-------
-
-    public int intInputHandler(int max) {
+/*
+    public static int intInputHandler(int max) {
         Scanner input = new Scanner(System.in);
         int choice = 0;
 
@@ -124,7 +198,7 @@ public class Player {
         input.close();
         return choice;
     }
-
+*/
 }
 
 

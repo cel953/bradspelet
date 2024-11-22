@@ -47,9 +47,9 @@ public class Game {
     // Loop för spelet
     private void gameLoop() {
         while (gameOn) {
-            System.out.println("\n" + currentPlayer.getName() + " tur. (" + currentPlayer.getSymbol() + ")");
+            System.out.println("\n" + currentPlayer.getName() + "s tur. (" + currentPlayer.getSymbol() + ")");
+            System.out.println();
             gameBoard.print();
-
             int row = 0, col = 0;
             boolean validMove = false;
 
@@ -60,16 +60,21 @@ public class Game {
                     row = scanner.nextInt();
                     System.out.println("Kolumn: "); 
                     col = scanner.nextInt();
+                    System.out.println();
 
                     // Kollar om platsen är tillgänlig
                     if (gameBoard.checkSpaceValid(row, col) && gameBoard.checkSpaceAvailable(row, col)) {
                         gameBoard.placeSymbol(row, col, currentPlayer.getSymbol());
                         validMove = true;
+
                     } else {
-                        System.out.println("Ogiltigt. Vängeligen försök igen.");
+                        System.out.println("Ogiltigt, vänligen försök igen.");
+                        System.out.println();
                     }
+
                 } catch (InputMismatchException e) { // För ogitlig inmatning
-                    System.out.println("Ogitligt värde. Vänligen ange nummer endast.");
+                    System.out.println("Ogitligt värde, vänligen mata endast in nummer.");
+                    System.out.println();
                     scanner.nextLine(); // Rensar scannern
                 }
             }
@@ -77,13 +82,17 @@ public class Game {
             //  Kontrollerar vinst
             if (gameBoard.checkIfWin(row, col, calculateWinCondition())) {
                 System.out.println("\n" + currentPlayer.getName() + " vann!");
+                System.out.println();
                 gameBoard.print();
-                currentPlayer.increaseStats(gameID, 0);
+                currentPlayer.increaseStats(gameID, 0); // skriv om metodnamn för poängställning
                 endGame();
-            } else if (gameBoard.isFull()) { // Kontrollerar om brädet är fullt
+
+            } else if (gameBoard.getIsFull()) { // Kontrollerar om brädet är fullt,
                 System.out.println("\nSpelet är oavgjort!");
-                currentPlayer.increaseStats(gameID, 1);
+                System.out.println();
+                currentPlayer.increaseStats(gameID, 1); // skriv om metodnamn för poängställning
                 endGame();
+
             } else {
                 switchTurn();
             }
@@ -93,6 +102,7 @@ public class Game {
     private void endGame() {
         gameOn = false;
         System.out.println("Game over");
+        System.out.println();
         closeScanner();
     }
 
