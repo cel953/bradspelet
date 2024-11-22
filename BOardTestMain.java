@@ -1,10 +1,9 @@
-package BOardTest;
 import java.util.Scanner;
-
+//Denna är skapad helt för min (Kristin) egen skull för att kolla att board-funktionerna funkar.
 public class BOardTestMain {
     public static void main(String[] args) {
         Board myBoard = new Board();
-        myBoard.create("Bräde 3x3", 3, 3);
+        myBoard.create("Mitt Bräde", 30, 20);
         boolean gameOn = true;
 
 
@@ -13,9 +12,9 @@ public class BOardTestMain {
         while (gameOn){
 
             System.out.println("what row?");
-            int row = scanner.nextInt();
+            int row = scanner.nextInt()-1;
             System.out.println("what column?");
-            int column = scanner.nextInt();
+            int column = scanner.nextInt()-1;
             scanner.nextLine();
             System.out.println("what symbol?");
             
@@ -33,14 +32,14 @@ public class BOardTestMain {
             myBoard.placeSymbol(row, column, symbol);
             myBoard.print();
 
-   /*         if (myBoard.checkIfWin(row, column, 3)) {
+            if (myBoard.checkIfWin(row, column, 15)) {
                 System.out.println("somwbody's a winner!");
                 gameOn = false;
                 
             }
-*/
 
-            if(myBoard.isIsFull()){
+
+            if(myBoard.getIsFull()){
                 System.out.println("It's a Draw!");
                 gameOn = false;
 
