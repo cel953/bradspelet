@@ -21,8 +21,9 @@ public class Game {
         this.gameOn = true;
     }
 
-    public void gameFlow(int gameID, ArrayList<Player> players){
-        this.playerList = players;
+    public void gameFlow(int gameID){
+        
+        this.playerList = main.players;
         this.gameBoard = new Board(); // Instans av brädet
         switch (this.gameID) {
             case 1:
@@ -40,7 +41,7 @@ public class Game {
             default:
                 break;
         }
-          createRandomOrder(this.playerList);
+          createRandomOrder();
           gameLoop();
 
     }
@@ -111,9 +112,9 @@ public class Game {
     }
 
      // Metod för slumpmässig turordning
-     public void createRandomOrder(ArrayList<Player> players) {
+     public void createRandomOrder() {
         this.playOrder = new LinkedList<>(); // Skapar spelkön
-        List<Player> shuffledPlayers = new ArrayList<>(players); // Kopierar kölistan för slumpmässig turordning
+        List<Player> shuffledPlayers = new ArrayList<>(this.playerList); // Kopierar kölistan för slumpmässig turordning
         Collections.shuffle(shuffledPlayers); 
         this.playOrder.addAll(shuffledPlayers);
     }
@@ -152,7 +153,7 @@ public class Game {
         switch (playerChoice) {
             case 1:
                 gameBoard.clear();
-                createRandomOrder(playerList);
+                createRandomOrder();
                 break;
 
             case 2:
