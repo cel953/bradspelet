@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 
 
 public class Game {
@@ -12,41 +13,17 @@ public class Game {
     private Queue<Player> playOrder;
     private Player currentPlayer;
     private Board gameBoard;
+    private static Random rand = new Random();
+    private ArrayList<Player> playerList= new ArrayList<>();
 
     public Game(int gameID) {
         this.gameID = gameID;
         this.gameOn = true;
     }
 
-
     public void gameFlow(int gameID, ArrayList<Player> players){
+        this.playerList = players;
         this.gameBoard = new Board(); // Instans av brädet
-        switch (gameID) {
-            case 1:
-                gameBoard.create("Spelbräde", 3, 3);        
-                break;
-            case 2:
-                gameBoard.create("Spelbräde", 3, 3);        
-                break;
-            case 3:
-                gameBoard.create("Spelbräde", 10, 10);        
-                break;
-            case 4:
-                gameBoard.create("Spelbräde", 20, 20);        
-                break;            
-            default:
-                break;
-        }
-          createRandomOrder(players);
-          gameLoop();
-
-    }
-
-
-    // Metod som skapar brädet och startar spelet
-    public void gameSetup(int gameID, ArrayList<Player> players) {
-
-        gameBoard = new Board(); // Instans av brädet
         switch (this.gameID) {
             case 1:
                 gameBoard.create("Spelbräde", 3, 3);        
@@ -63,11 +40,11 @@ public class Game {
             default:
                 break;
         }
-    
-        createRandomOrder(players);
-        currentPlayer = playOrder.peek(); // Tar ej bort de i spelkön
-        gameLoop();
+          createRandomOrder(this.playerList);
+          gameLoop();
+
     }
+
 
     // Loop för spelet
     private void gameLoop() {
@@ -83,11 +60,17 @@ public class Game {
             // För gilitga/tillgänliga spelbricka av spelare
             while (!validMove) {
                 try {
-                    System.out.println("Rad: ");
-                    row = main.gameScanner.nextInt() -1;
-                    System.out.println("Kolumn: "); 
-                    col = main.gameScanner.nextInt() -1;
-                    System.out.println();
+                    if(currentPlayer.getisHuman()){
+                        System.out.println("Rad: ");
+                        row = main.gameScanner.nextInt() -1;
+                        System.out.println("Kolumn: "); 
+                        col = main.gameScanner.nextInt() -1;
+                        System.out.println();
+                    }else if(!currentPlayer.getisHuman()){
+
+                        row = computersTurn(gameBoard.getRows());
+                        col = computersTurn(gameBoard.getColulmns());
+                    }
 
                     // Kollar om platsen är tillgänlig
                     if (gameBoard.checkSpaceValid(row, col) && gameBoard.checkSpaceAvailable(row, col)) {
@@ -95,8 +78,10 @@ public class Game {
                         validMove = true;
 
                     } else {
-                        System.out.println("Ogiltigt, vänligen försök igen.");
-                        System.out.println();
+                        if(currentPlayer.getisHuman()){
+                            System.out.println("Ogiltigt, vänligen försök igen.");
+                            System.out.println();
+                        }
                     }
 
                 } catch (InputMismatchException e) { // För ogitlig inmatning
@@ -111,14 +96,13 @@ public class Game {
                 System.out.println("\n" + currentPlayer.getName() + " vann!");
                 System.out.println();
                 gameBoard.print();
- //               currentPlayer.increaseStats(gameID, 0); // skriv om metodnamn för poängställning
-                endGame();
+                currentPlayer.increaseStats(gameID);
+                afterGame();
 
             } else if (gameBoard.getIsFull()) { // Kontrollerar om brädet är fullt,
                 System.out.println("\nSpelet är oavgjort!");
                 System.out.println();
- //               currentPlayer.increaseStats(gameID, 1); // skriv om metodnamn för poängställning
-                endGame();
+                afterGame();
 
             } else {
                 switchTurn();
@@ -144,6 +128,7 @@ public class Game {
         gameOn = false;
         System.out.println("Game over");
         System.out.println();
+        Runtime.getRuntime().exit(0);
     }
 
     private int calculateWinCondition() {
@@ -152,4 +137,38 @@ public class Game {
         if (gameID == 4) return 5; // 5 i rad
         return 3;
     }
+
+    private int computersTurn(int dimension){
+        return rand.nextInt(dimension);
+    }
+
+    private void afterGame(){
+        System.out.println("Vad vill du göra nu?");
+        System.out.println("1. Spela igen");
+        System.out.println("2. Tillbaka till startmeny");
+        System.out.println("3. Avsluta spel");
+        int playerChoice = main.gameScanner.nextInt();
+        main.gameScanner.nextLine();
+        switch (playerChoice) {
+            case 1:
+                gameBoard.clear();
+                createRandomOrder(playerList);
+                break;
+
+            case 2:
+                gameOn = false;
+                break;
+
+            case 3:
+                endGame();
+                break;
+        
+            default:
+                break;
+        }
+
+
+
+    }
+
 }

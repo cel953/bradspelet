@@ -1,21 +1,19 @@
-import java.util.Scanner;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 public class Player {
     
     private String name = "New player";
-    private char symbol;
+    private char symbol = ' ';
     private boolean isHuman;
-    private int[][] stats; 
-    
+    private int[] stats = {0, 0, 0, 0}; // 4 gamemodes, counting wins for each game mode
 
-//Används ej
+
+
     public Player createPlayer(String name, boolean isHuman) {
         this.name = name;
-        this.symbol = ' ';
         this.isHuman = isHuman;
-        this.stats = new int[3][3]; // 3 gamemodes, 3 stats = {wins, draws, losses}
         return this;
     }
 
@@ -49,7 +47,7 @@ public class Player {
         //intInputHandler(2);
 
         switch (choice) {
-            case 1:  //Bryt ut och gör egen metod för detta
+            case 1:  //Bryt ut och gör egen metod för detta?
                 tempPlayer.setSymbol('X');
                 System.out.println("Spelare " + tempPlayer.getName() + " har valt symbol " + tempPlayer.getSymbol() + ".");
                 tempPlayer = playerList.get(1);
@@ -67,6 +65,9 @@ public class Player {
         }
     }
     
+    public void increaseStats(int gameID){
+        this.stats[gameID-1] =+ 1;
+    }
 
     //-------Name, Symbol and isHuman-------
 
@@ -93,6 +94,9 @@ public class Player {
 
 
 
+
+
+
         // Filter so that if playing vs the computer, the player always chooses symbol
         
     
@@ -102,30 +106,16 @@ public class Player {
 
 
     public int getWins(int gameMode) {
-        return stats[gameMode][0];
+        return this.stats[gameMode];
     }
-    public int getDraws(int gameMode) {
-        return stats[gameMode][1];
-    }
-    public int getLosses(int gameMode) {
-        return stats [gameMode][2];
-    }
+/*
     public int getTotalStat(int stat) {
         int total = 0;
         for (int gameMode = 0; gameMode < this.stats.length; gameMode++) 
             total =+ this.stats[gameMode][stat];
         return total;
     }
-
-    public void hasWon(int gameMode) {
-        this.stats[gameMode][0] =+ 1;
-    }
-    public void isDraw(int gameMode) {
-        this.stats[gameMode][1] =+ 1;
-    }
-    public void hasLost(int gameMode) {
-        this.stats[gameMode][2] =+ 1;
-    }
+*/
 
     //-------Convenient choice handler-------
 /*

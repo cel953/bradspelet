@@ -4,61 +4,68 @@ import java.util.ArrayList;
 
 
 public class main {
-    
     protected static Scanner gameScanner = new Scanner(System.in);
+    
 
     public static void main(String[] args) {
         
-        
-        System.out.println("Hej och välkommen till Swedish Test Mafias brädspelssamling!");
-        System.out.println();
-        
-        int gameID = menu.selectGame();
-        startGame(gameID);
-        
-    gameScanner.close();
+        ArrayList<Player> players = new ArrayList<>();
+
+        while (true) {
+            System.out.println("Hej och välkommen till Swedish Test Mafias brädspelssamling!");
+            System.out.println();
+            int gameID = menu.selectGame();
+            startGame(gameID, players);
+        }
     }
 
 
-    public static void startGame(int gameID) {
+    public static void startGame(int gameID, ArrayList<Player> players) {
         Game game = new Game(gameID);
         int chooseGame = 0;
-        ArrayList<Player> players = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
-
-            switch (gameID) {
+            
+        
+           switch (gameID) {
                 case 1:
                     System.out.println("Du valde att spela Tre i rad mot dator!");
                     //Ropa på metod som skapa spelarlista med en spelare + dator
-                    players = createPlayerList(1, 1);
-                    Player.chooseName(players);
-                    Player.chooseSymbol(players);
+                    if(players.size() == 0){
+                        players = createPlayerList(1, 1);
+                        Player.chooseName(players);
+                        Player.chooseSymbol(players);
+                    }
                     game.gameFlow(gameID, players);
                     break;
 
                 case 2:
                     System.out.println("Du valde att spela Tre i rad mot en motståndare!");
                     //Ropa på metod som skapa spelarlista med en spelare
-                    players = createPlayerList(2, 0);
-                    Player.chooseName(players);
-                    Player.chooseSymbol(players);
+                    if(players.size() == 0){
+                        players = createPlayerList(2, 0);
+                        Player.chooseName(players);
+                        Player.chooseSymbol(players);
+                    }
                     game.gameFlow(gameID, players);
                     break;
 
                 case 3:
                     System.out.println("Du valde att spela Fyra i rad mot en motståndare!");    
                     //Ropa på metod som skapa spelarlista med en spelare
-                    players = createPlayerList(2, 0);
-                    Player.chooseName(players);
-                    Player.chooseSymbol(players);
+                    if(players.size() == 0){
+                        players = createPlayerList(2, 0);
+                        Player.chooseName(players);
+                        Player.chooseSymbol(players);
+                    }
                     game.gameFlow(gameID, players);
                     break;
 
                 case 4:
                     System.out.println("Du valde att spela Fem  i rad mot en motståndare!"); //denna ska bort
-                    players = createPlayerList(2, 0);
-                    Player.chooseName(players);
-                    Player.chooseSymbol(players);
+                    if(players.size() == 0){
+                        players = createPlayerList(2, 0);
+                        Player.chooseName(players);
+                        Player.chooseSymbol(players);
+                    }
                     game.gameFlow(gameID, players);
                     break;
                 default:
@@ -69,10 +76,6 @@ public class main {
     
 
             }
-        scanner.close();
-
- 
-
     }
 
     private static ArrayList<Player> createPlayerList(int human, int computer){
@@ -91,8 +94,9 @@ public class main {
             player.setisHuman(false);
             playerList.add(player);
         }
-
         return playerList; // ska returnera en lista
     }
+    
+    
 
 }

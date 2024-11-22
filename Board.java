@@ -290,6 +290,17 @@ public class Board {
         return this.getIsFull();
     }
 
+    public void clear(){
+        for (int i = 0; i < this.table.length; i++) {
+            for (int j = 0; j < this.table[0].length; j++) {
+                this.table[i][j] = ' ';
+            }
+        }
+        this.setIsFull(false);
+        this.setSpacesTaken(0);
+    }
+
+
 
 // ------- Getters and setters --------
 
@@ -309,6 +320,15 @@ public class Board {
     public void setTable(char[][] table) {
         this.table = table;
     }
+
+    public int getRows() {
+        return this.table.length;
+    }
+
+    public int getColulmns() {
+        return this.table[0].length;
+    }
+    
     
     public int getSpacesTaken() {
         return this.spacesTaken;
