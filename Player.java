@@ -24,14 +24,75 @@ public class Player {
 
         // Error handling needed, min and max length etc
         Player tempPlayer = new Player();
+
         for (int i = 0; i < playerList.size(); i++){
             tempPlayer = playerList.get(i);
+            int index = i;
+
+
             if(tempPlayer.getisHuman()){
                 System.out.println("Vad vill du ha för namn på din spelare " + (i+1) + "?");
-                tempPlayer.setName(main.gameScanner.nextLine()); //Felhantering för längd etc  
+                String name = goodName(index, playerList);
+                tempPlayer.setName(name); //Felhantering för längd etc  
                 System.out.println("Spelare " + (i+1) + " har valt namn " + tempPlayer.getName());
             }    
         }         
+    }
+
+
+    public static String goodName(int index, ArrayList<Player> playerList) {
+        String name;
+        boolean validName = false;
+
+
+        while (!validName) {
+            name = main.gameScanner.nextLine();
+            validName = nameFilter(name, playerList);
+            if (!validName) {
+                System.out.println("Vill du fortfarande välja ett eget namn?");
+                System.out.println("1. Ja.");
+                System.out.println("2. Nej.");
+                int choice = intInputFilter(2);
+
+                switch (choice) {
+                    case 1:
+                        continue;
+
+                    case 2:
+                        name = ("Spelare " + (index + 1));
+                }
+            }
+        }
+
+    }
+
+    public static boolean nameFilter(String name, ArrayList<Player> playerList) {
+        boolean isShort = (name.length() < 2);
+        boolean isLong  = (name.length() > 12);
+        boolean isDupe;
+
+        for (Player player : playerList) {
+            if (name == player.getName()) {
+                isDupe = true;
+                break;
+            }
+        }
+
+        if (isDupe) {
+            System.out.println("Namnet " + name + " är redan taget, välj ett annat namn!");
+        }
+        else if (isShort) {
+            System.out.println("Du måste välja ett namn som är mer än 2 tecken långt.");
+        }
+        else if (isLong) {
+            System.out.println("Du måste välja ett namn som är mindre än 12 tecken långt.");
+        }
+
+        else {
+            return true;
+        }
+
+        }
     }
 
     public static void chooseSymbol(ArrayList<Player> playerList) {
@@ -118,22 +179,21 @@ public class Player {
 */
 
     //-------Convenient choice handler-------
-/*
-    public static int intInputHandler(int max) {
-        Scanner input = new Scanner(System.in);
+
+    public static int intInputFilter(int max) {
+
         int choice = 0;
 
         while ((choice < 1) || (max < choice)) {
             try {
-                choice = input.nextInt();
+                choice = main.gameScanner.nextInt();
             }
             catch (InputMismatchException e) {
                 System.out.println("Du måste välja ett av alternativen från 1 till" + max + ".");
                 continue;
             }
         }
-        input.close();
         return choice;
     }
-*/
+
 }
