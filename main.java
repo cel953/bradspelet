@@ -16,24 +16,6 @@ public class main {
         int gameID = menu.selectGame();
         startGame(gameID);
         
-
-        
-        // TODO hämta metod om att fråga om namn - addPlayer
-        // TODO returnera en arraylist Players
-
-
-        // Kalla på tre i rad
-        // kalla på fyra i rad
-        // Kalla på fem i rad
-
-        // avsluta spelet
-
-        // avslutsvillkor
-        // val om de vill fortsätta, gå tillbaka till menyn eller avsluta spelet.
-
-        // fortsätta - starta ny runda
-        // tillbaka till menyn
-        // Avsluta spelet
     gameScanner.close();
     }
 
@@ -52,16 +34,11 @@ public class main {
                     Player.chooseName(players);
                     Player.chooseSymbol(players);
                     game.gameFlow(gameID, players);
-
-
-                    // sedan ska den kalla på metoden för att komma till 3 i rad
                     break;
 
                 case 2:
                     System.out.println("Du valde att spela Tre i rad mot en motståndare!");
-                    
                     //Ropa på metod som skapa spelarlista med en spelare
-                    // sedan ska den kalla på metoden för att komma till 4 i rad
                     players = createPlayerList(2, 0);
                     Player.chooseName(players);
                     Player.chooseSymbol(players);
@@ -75,15 +52,13 @@ public class main {
                     Player.chooseName(players);
                     Player.chooseSymbol(players);
                     game.gameFlow(gameID, players);
-                    
-                    // sedan ska den kalla på metoden för att komma till 3 i rad
                     break;
 
                 case 4:
                     System.out.println("Du valde att spela Fem  i rad mot en motståndare!"); //denna ska bort
                     players = createPlayerList(2, 0);
                     Player.chooseName(players);
-                    Player.chooseSymbol(players);                    // sedan ska den kalla på metoden för att komma till 3 i rad
+                    Player.chooseSymbol(players);
                     game.gameFlow(gameID, players);
                     break;
                 default:
