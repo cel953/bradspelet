@@ -41,13 +41,14 @@ public class Player {
 
 
     public static String goodName(int index, ArrayList<Player> playerList) {
-        String name;
         boolean validName = false;
+        String name = ("Spelare " + (index + 1));
 
 
         while (!validName) {
             name = main.gameScanner.nextLine();
             validName = nameFilter(name, playerList);
+
             if (!validName) {
                 System.out.println("Vill du fortfarande välja ett eget namn?");
                 System.out.println("1. Ja.");
@@ -60,16 +61,23 @@ public class Player {
 
                     case 2:
                         name = ("Spelare " + (index + 1));
+                        break;
                 }
             }
+            else {
+                break;
+            }
         }
-
+        return name;
     }
 
     public static boolean nameFilter(String name, ArrayList<Player> playerList) {
         boolean isShort = (name.length() < 2);
         boolean isLong  = (name.length() > 12);
-        boolean isDupe;
+        boolean isDupe = true;
+        //boolean isEmpty;
+
+        //for (char c : name) // sätt isEmpty för att kolla om första eller sista tecknet i namnet inte är == " "
 
         for (Player player : playerList) {
             if (name == player.getName()) {
@@ -80,12 +88,15 @@ public class Player {
 
         if (isDupe) {
             System.out.println("Namnet " + name + " är redan taget, välj ett annat namn!");
+            return false;
         }
         else if (isShort) {
             System.out.println("Du måste välja ett namn som är mer än 2 tecken långt.");
+            return false;
         }
         else if (isLong) {
             System.out.println("Du måste välja ett namn som är mindre än 12 tecken långt.");
+            return false;
         }
 
         else {
@@ -93,7 +104,8 @@ public class Player {
         }
 
         }
-    }
+    
+    
 
     public static void chooseSymbol(ArrayList<Player> playerList) {
         Player tempPlayer = new Player();
