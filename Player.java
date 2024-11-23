@@ -3,13 +3,11 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 public class Player {
-    
+
     private String name = "New player";
     private char symbol = ' ';
     private boolean isHuman;
-    private int[] stats = {0, 0, 0, 0}; // 4 gamemodes, counting wins for each game mode
-
-
+    private int[] stats = { 0, 0, 0, 0 }; // 4 gamemodes, counting wins for each game mode
 
     public Player createPlayer(String name, boolean isHuman) {
         this.name = name;
@@ -17,33 +15,28 @@ public class Player {
         return this;
     }
 
-    //-------New players-------
+    // -------New players-------
 
- 
     public static void chooseName(ArrayList<Player> playerList) {
 
-        // Error handling needed, min and max length etc
         Player tempPlayer = new Player();
 
-        for (int i = 0; i < playerList.size(); i++){
+        for (int i = 0; i < playerList.size(); i++) {
             tempPlayer = playerList.get(i);
             int index = i;
 
-
-            if(tempPlayer.getisHuman()){
-                System.out.println("Vad vill du ha för namn på din spelare " + (i+1) + "?");
-                String name = goodName(index, playerList);
-                tempPlayer.setName(name); //Felhantering för längd etc  
-                System.out.println("Spelare " + (i+1) + " har valt namn " + tempPlayer.getName());
-            }    
-        }         
+            if (tempPlayer.getisHuman()) {
+                System.out.println("Vad vill du ha för namn på din spelare " + (i + 1) + "?");
+                String name = checkName(index, playerList);
+                tempPlayer.setName(name);
+                System.out.println("Spelare " + (i + 1) + " har valt namn " + tempPlayer.getName());
+            }
+        }
     }
 
-
-    public static String goodName(int index, ArrayList<Player> playerList) {
+    public static String checkName(int index, ArrayList<Player> playerList) {
         boolean validName = false;
         String name = ("Spelare " + (index + 1));
-
 
         while (!validName) {
             name = main.gameScanner.nextLine();
@@ -63,8 +56,7 @@ public class Player {
                         name = ("Spelare " + (index + 1));
                         break;
                 }
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -72,40 +64,52 @@ public class Player {
     }
 
     public static boolean nameFilter(String name, ArrayList<Player> playerList) {
-        boolean isShort = (name.length() < 2);
-        boolean isLong  = (name.length() > 12);
-        boolean isDupe = true;
-        //boolean isEmpty;
 
-        //for (char c : name) // sätt isEmpty för att kolla om första eller sista tecknet i namnet inte är == " "
+        try {
+            boolean isShort = (name.length() < 2);
+            boolean isLong = (name.length() > 16);
+            boolean isDuplicate = true;
+            boolean isEmpty = true;
+            int spaceCount = 0;
 
-        for (Player player : playerList) {
-            if (name == player.getName()) {
-                isDupe = true;
-                break;
+            for (char c : name.toCharArray()) {
+                if (c == ' ') {
+                    spaceCount = +1;
+                }
             }
-        }
+            isEmpty = (spaceCount == name.length());
 
-        if (isDupe) {
-            System.out.println("Namnet " + name + " är redan taget, välj ett annat namn!");
+            for (Player player : playerList) {
+                if (name == player.getName()) {
+                    isDuplicate = true;
+                    break;
+                }
+            }
+
+            if (isEmpty) {
+                System.out.println("Ditt namn får inte bestå av endast mellanslag.");
+                return false;
+            } else if (isShort) {
+                System.out.println("Du måste välja ett namn som är mer än 2 tecken långt.");
+                return false;
+            } else if (isLong) {
+                System.out.println("Du måste välja ett namn som är mindre än 12 tecken långt.");
+                return false;
+            } else if (isDuplicate) {
+                System.out.println("Namnet " + name + " är redan taget, välj ett annat namn!");
+                return false;
+            }
+
+            else {
+                return true;
+            }
+
+        } catch (NullPointerException e) {
+            System.out.println("Du behöver skriva in ett namn.");
             return false;
         }
-        else if (isShort) {
-            System.out.println("Du måste välja ett namn som är mer än 2 tecken långt.");
-            return false;
-        }
-        else if (isLong) {
-            System.out.println("Du måste välja ett namn som är mindre än 12 tecken långt.");
-            return false;
-        }
 
-        else {
-            return true;
-        }
-
-        }
-    
-    
+    }
 
     public static void chooseSymbol(ArrayList<Player> playerList) {
         Player tempPlayer = new Player();
@@ -116,46 +120,52 @@ public class Player {
 
         int choice = main.gameScanner.nextInt();
         main.gameScanner.nextLine();
-        
-        //intInputHandler(2);
 
         switch (choice) {
-            case 1:  //Bryt ut och gör egen metod för detta?
+            case 1: // Bryt ut och gör egen metod för detta?
                 tempPlayer.setSymbol('X');
-                System.out.println("Spelare " + tempPlayer.getName() + " har valt symbol " + tempPlayer.getSymbol() + ".");
+                System.out.println(
+                        "Spelare " + tempPlayer.getName() + " har valt symbol " + tempPlayer.getSymbol() + ".");
                 tempPlayer = playerList.get(1);
                 tempPlayer.setSymbol('O');
-                System.out.println("Spelare " + tempPlayer.getName() + " har blivit tilldelad " + tempPlayer.getSymbol() + ".");
+                System.out.println(
+                        "Spelare " + tempPlayer.getName() + " har blivit tilldelad " + tempPlayer.getSymbol() + ".");
                 break;
             case 2:
                 tempPlayer.setSymbol('O');
-                System.out.println("Spelare " + tempPlayer.getName() + " har valt symbol " + tempPlayer.getSymbol() + ".");
+                System.out.println(
+                        "Spelare " + tempPlayer.getName() + " har valt symbol " + tempPlayer.getSymbol() + ".");
                 tempPlayer = playerList.get(1);
                 tempPlayer.setSymbol('X');
-                System.out.println("Spelare " + tempPlayer.getName() + " har blivit tilldelad " + tempPlayer.getSymbol() + ".");
+                System.out.println(
+                        "Spelare " + tempPlayer.getName() + " har blivit tilldelad " + tempPlayer.getSymbol() + ".");
             default:
                 break;
         }
     }
-    
-    public void increaseStats(int gameID){
-        this.stats[gameID-1] =+ 1;
+
+    public void increaseStats(int gameID) {
+        this.stats[gameID - 1] = +1;
     }
 
-    //-------Name, Symbol and isHuman-------
+    // -------Name, Symbol and isHuman-------
 
     public String getName() {
         return this.name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public char getSymbol() {
         return this.symbol;
     }
+
     public void setSymbol(char symbol) {
         this.symbol = symbol;
     }
+
     public boolean getisHuman() {
         return this.isHuman;
     }
@@ -164,33 +174,23 @@ public class Player {
         this.isHuman = isHuman;
     }
 
+    // Filter so that if playing vs the computer, the player always chooses symbol
 
-
-
-
-
-
-        // Filter so that if playing vs the computer, the player always chooses symbol
-        
-    
-
-
-    //-------Stats-------
-
+    // -------Stats-------
 
     public int getWins(int gameMode) {
         return this.stats[gameMode];
     }
-/*
-    public int getTotalStat(int stat) {
-        int total = 0;
-        for (int gameMode = 0; gameMode < this.stats.length; gameMode++) 
-            total =+ this.stats[gameMode][stat];
-        return total;
-    }
-*/
+    /*
+     * public int getTotalStat(int stat) {
+     * int total = 0;
+     * for (int gameMode = 0; gameMode < this.stats.length; gameMode++)
+     * total =+ this.stats[gameMode][stat];
+     * return total;
+     * }
+     */
 
-    //-------Convenient choice handler-------
+    // -------Convenient choice handler-------
 
     public static int intInputFilter(int max) {
 
@@ -199,8 +199,7 @@ public class Player {
         while ((choice < 1) || (max < choice)) {
             try {
                 choice = main.gameScanner.nextInt();
-            }
-            catch (InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 System.out.println("Du måste välja ett av alternativen från 1 till" + max + ".");
                 continue;
             }
