@@ -76,15 +76,14 @@ public class Player {
             boolean isEmpty = false;
             int spaceCount = 0;
 
-            for (char c : (name.toCharArray())) {
+            for (char c : (name.toCharArray())) { //Fungerar inte som den ska
                 if (c == ' ') {
-                    System.out.print(c);
                     spaceCount = +1;
                 }
             }
             isEmpty = (spaceCount == name.length());
 
-            for (Player player : playerList) {
+            for (Player player : playerList) { //Hittar inte dubbelnamn just nu
                 if (name == player.getName()) {
                     isDuplicate = true;
                     break;
