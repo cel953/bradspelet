@@ -78,7 +78,7 @@ public class Player {
 
             for (char c : (name.toCharArray())) { //Fungerar inte som den ska
                 if (c == ' ') {
-                    spaceCount = +1;
+                    spaceCount = + spaceCount;
                 }
             }
             isEmpty = (spaceCount == name.length());
