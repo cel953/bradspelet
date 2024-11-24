@@ -26,7 +26,7 @@ public class Player {
             int index = i;
 
             if (tempPlayer.getisHuman()) {
-                System.out.println("Vad vill du ha för namn på din spelare " + (i + 1) + "?");
+
                 String name = checkName(index, playerList);
                 tempPlayer.setName(name);
                 System.out.println("Spelare " + (i + 1) + " har valt namn " + tempPlayer.getName());
@@ -39,6 +39,7 @@ public class Player {
         String name = ("Spelare " + (index + 1));
 
         while (!validName) {
+            System.out.println("Vad vill du ha för namn på din spelare " + (index + 1) + "?");
             name = main.gameScanner.nextLine();
             validName = nameFilter(name, playerList);
 
@@ -47,13 +48,16 @@ public class Player {
                 System.out.println("1. Ja.");
                 System.out.println("2. Nej.");
                 int choice = intInputFilter(2);
+                name = ("Spelare " + (index + 1));
+
 
                 switch (choice) {
                     case 1:
                         continue;
 
                     case 2:
-                        name = ("Spelare " + (index + 1));
+
+                        validName = true;
                         break;
                 }
             } else {
@@ -67,19 +71,19 @@ public class Player {
 
         try {
             boolean isShort = (name.length() < 2);
-            boolean isLong = (name.length() > 16);
-            boolean isDuplicate = true;
-            boolean isEmpty = true;
+            boolean isLong = (name.length() > 12);
+            boolean isDuplicate = false;
+            boolean isEmpty = false;
             int spaceCount = 0;
 
-            for (char c : name.toCharArray()) {
+            for (char c : (name.toCharArray())) { //Tar just nu "", som den inte ska
                 if (c == ' ') {
-                    spaceCount = +1;
+                    spaceCount = + spaceCount;
                 }
             }
-            isEmpty = (spaceCount == name.length());
+            isEmpty = (name.length() > 0) && (spaceCount == name.length());
 
-            for (Player player : playerList) {
+            for (Player player : playerList) { //Hittar inte dubbelnamn just nu
                 if (name == player.getName()) {
                     isDuplicate = true;
                     break;
@@ -199,6 +203,7 @@ public class Player {
         while ((choice < 1) || (max < choice)) {
             try {
                 choice = main.gameScanner.nextInt();
+                main.gameScanner.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("Du måste välja ett av alternativen från 1 till" + max + ".");
                 continue;
