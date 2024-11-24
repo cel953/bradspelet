@@ -40,7 +40,7 @@ public class Board {
  
 //Skriv ut bräde i terminal
     public void print(){                            
-    System.out.println("Here is your board!");
+    System.out.println("Här är ditt bräde!");
         
         this.printColumnNumbers();
         this.printLine();
@@ -87,12 +87,12 @@ public class Board {
         int vertical = checkVertical(row, column);
         int diagonalDown = checkDiagonalDown(row, column);
         int diagonalUp = checkDiagonalUp(row, column);
-
-        System.out.println("Vertikalt : " + vertical);              
+/*
+        System.out.println("Vertikalt : " + vertical);     ///För enkel felsökning         
         System.out.println("Horisontellt : " + horizontal);  
         System.out.println("Diagonalt nedåt: " + diagonalDown);
         System.out.println("Diagonalt uppåt: " + diagonalUp);
-        
+*/        
         if( vertical >= numbersInRowToWin || 
             horizontal >= numbersInRowToWin ||
             diagonalDown >= numbersInRowToWin ||
