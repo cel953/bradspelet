@@ -71,17 +71,17 @@ public class Player {
 
         try {
             boolean isShort = (name.length() < 2);
-            boolean isLong = (name.length() > 16);
+            boolean isLong = (name.length() > 12);
             boolean isDuplicate = false;
             boolean isEmpty = false;
             int spaceCount = 0;
 
-            for (char c : (name.toCharArray())) { //Fungerar inte som den ska
+            for (char c : (name.toCharArray())) { //Tar just nu "", som den inte ska
                 if (c == ' ') {
                     spaceCount = + spaceCount;
                 }
             }
-            isEmpty = (spaceCount == name.length());
+            isEmpty = ((name.length() > 0) && (spaceCount == name.length()));
 
             for (Player player : playerList) { //Hittar inte dubbelnamn just nu
                 if (name == player.getName()) {
