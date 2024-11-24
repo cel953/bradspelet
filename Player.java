@@ -81,7 +81,7 @@ public class Player {
                     spaceCount = + spaceCount;
                 }
             }
-            isEmpty = ((name.length() > 0) && (spaceCount == name.length()));
+            isEmpty = (name.length() > 0) && (spaceCount == name.length());
 
             for (Player player : playerList) { //Hittar inte dubbelnamn just nu
                 if (name == player.getName()) {
