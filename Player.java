@@ -28,7 +28,7 @@ public class Player {
                 System.out.println("Vill du välja namn för Spelare " + (i + 1) + "?");
                 System.out.println("1. Ja");
                 System.out.println("2. Nej");
-                int choice = intInputFilter(2);
+                int choice = globalTools.intInputFilter(2);
                 switch (choice) {
                     case 1:
                         String name = checkName(index, playerList);
@@ -64,7 +64,7 @@ public class Player {
                 System.out.println("Vill du fortfarande välja ett eget namn?");
                 System.out.println("1. Ja.");
                 System.out.println("2. Nej.");
-                int choice = intInputFilter(2);
+                int choice = globalTools.intInputFilter(2);
                 name = ("Spelare " + (index + 1));
 
 
@@ -139,8 +139,7 @@ public class Player {
         System.out.println("Välj vilken symbol du vill ha " + tempPlayer.getName() + "!");
         System.out.println("1. X");
         System.out.println("2. O");
-        int choice = main.gameScanner.nextInt();
-        main.gameScanner.nextLine();
+        int choice = globalTools.intInputFilter(2);
         System.out.println();
 
         switch (choice) {
@@ -212,40 +211,6 @@ public class Player {
             totalWins =+ wins;
         }
         return totalWins;
-    }
-
-    // -------Convenient choice handler-------
-
-    public static int intInputFilter(int max) {
-
-        int choice = 0;
-        boolean invalidChoice = true;
-
-        while (invalidChoice) {
-
-                if (main.gameScanner.hasNextInt()) {
-                    choice = main.gameScanner.nextInt();
-                    invalidChoice = ((choice < 1) || (max < choice));
-                    if (invalidChoice) {
-                        System.out.println("Du måste välja ett av alternativen från 1 till " + max + ".");
-                        main.gameScanner.nextLine();
-                        continue;
-                    }
-                    else {
-                        main.gameScanner.nextLine();
-                        break;
-                    }
-                }
-            
-                else {
-                    System.out.println("Du måste välja ett av alternativen från 1 till " + max + ".");
-                    main.gameScanner.nextLine();
-                    continue;
-
-                }
-
-        }
-        return choice;
     }
 
 }

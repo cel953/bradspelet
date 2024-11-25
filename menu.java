@@ -21,9 +21,7 @@ public class menu {
             System.out.println("Skriv in 1, 2, 3 eller 4 beroende på vilket spel du vill spela");
             try {
 
-                chooseGame = main.gameScanner.nextInt();
-                System.out.println();
-                main.gameScanner.nextLine(); // Rensar bort ogiltiga symboler i scannern
+                chooseGame = globalTools.intInputFilter(4);
 
             } catch (InputMismatchException e) {
                 System.out.println("Du måste skriva in ett heltal");
