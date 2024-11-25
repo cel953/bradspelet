@@ -144,6 +144,15 @@ public class Game {
     }
 
     private void afterGame(){
+
+        playerList.clear();
+        System.out.println("Antal vinster:");
+        for (Player player : playOrder) {
+
+            System.out.println(player.getName() + ": " + player.getWins(gameID) + "st");
+            playerList.add(player);
+
+        }
         System.out.println("Vad vill du göra nu?");
         System.out.println("1. Spela igen");
         System.out.println("2. Tillbaka till startmeny");
