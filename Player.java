@@ -29,7 +29,7 @@ public class Player {
 
                 String name = checkName(index, playerList);
                 tempPlayer.setName(name);
-                System.out.println("Spelare " + (i + 1) + " har valt namn " + tempPlayer.getName());
+                System.out.println("Spelare " + (i + 1) + " har valt namn " + tempPlayer.getName() + "!");
             }
         }
     }
@@ -74,17 +74,18 @@ public class Player {
             boolean isLong = (name.length() > 12);
             boolean isDuplicate = false;
             boolean isEmpty = false;
+            boolean isIllegal = false;
             int spaceCount = 0;
 
-            for (char c : (name.toCharArray())) { //Tar just nu "", som den inte ska
+            for (char c : (name.toCharArray())) { //Tar just nu "", och mellanslag före samt efter sista tecknet
                 if (c == ' ') {
                     spaceCount = + spaceCount;
                 }
             }
             isEmpty = (name.length() > 0) && (spaceCount == name.length());
 
-            for (Player player : playerList) { //Hittar inte dubbelnamn just nu
-                if (name == player.getName()) {
+            for (Player player : playerList) {
+                if (name.equalsIgnoreCase(player.getName())) {
                     isDuplicate = true;
                     break;
                 }
@@ -185,14 +186,14 @@ public class Player {
     public int getWins(int gameMode) {
         return this.stats[gameMode];
     }
-    /*
-     * public int getTotalStat(int stat) {
-     * int total = 0;
-     * for (int gameMode = 0; gameMode < this.stats.length; gameMode++)
-     * total =+ this.stats[gameMode][stat];
-     * return total;
-     * }
-     */
+
+    public int getAllWins() {
+        int totalWins = 0;
+        for (int wins : this.stats) {
+            totalWins =+ wins;
+        }
+        return totalWins;
+    }
 
     // -------Convenient choice handler-------
 
