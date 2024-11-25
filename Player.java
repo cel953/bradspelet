@@ -141,7 +141,6 @@ public class Player {
         System.out.println("Välj vilken symbol du vill ha " + tempPlayer.getName() + "!");
         System.out.println("1. X");
         System.out.println("2. O");
-
         int choice = main.gameScanner.nextInt();
         main.gameScanner.nextLine();
         System.out.println();
