@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
@@ -77,11 +76,11 @@ public class Game {
                         validMove = true;
 
                     } else if (currentPlayer.getisHuman() && !gameBoard.checkSpaceValid(row, col)){
-                            System.out.println("Ogiltigt, vänligen försök igen.");
+                            System.out.println("Spelrutan du valde är utanför spelbrädet, vänligen försök igen.");
                             System.out.println();
                     
                     } else if (currentPlayer.getisHuman() && !gameBoard.checkSpaceAvailable(row, col)){
-                        System.out.println("Upptaget, vänligen försök igen.");
+                        System.out.println("Spelrutan du valde är redan upptagen, vänligen försök igen.");
                         System.out.println();
                     }
 
