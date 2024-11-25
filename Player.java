@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.io.IOException;
 
 public class Player {
 
@@ -31,7 +32,6 @@ public class Player {
                 System.out.println("1. Ja");
                 System.out.println("2. Nej");
                 int choice = intInputFilter(2);
-
                 switch (choice) {
                     case 1:
                         String name = checkName(index, playerList);
@@ -218,15 +218,26 @@ public class Player {
     public static int intInputFilter(int max) {
 
         int choice = 0;
+        boolean validChoice = false;
 
-        while ((choice < 1) || (max < choice)) {
-            try {
-                choice = main.gameScanner.nextInt();
-                main.gameScanner.nextLine();
-            } catch (InputMismatchException e) {
-                System.out.println("Du måste välja ett av alternativen från 1 till" + max + ".");
-                continue;
-            }
+        while (!validChoice) {
+
+                if (main.gameScanner.hasNextInt()) {
+                    choice = main.gameScanner.nextInt();
+                    validChoice = !((choice < 1) || (max < choice));
+                    main.gameScanner.next();
+                }
+            
+                else {
+                    main.gameScanner.next();
+                }
+
+                if (!validChoice) {
+                    System.out.println("Du måste välja ett av alternativen från 1 till " + max + ".");
+
+                }
+
+
         }
         return choice;
     }
