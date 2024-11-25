@@ -48,25 +48,25 @@ public class Game {
     // Loop för spelet
     private void gameLoop() {
         
+        printWelcomeMessage();
+
         while (gameOn) {
             currentPlayer = main.players.get(playOrder.peek()); // Tar ej bort de i spelkön
-            System.out.println("\n" + currentPlayer.getName() + "s tur. (" + currentPlayer.getSymbol() + ")");
-            System.out.println();
             gameBoard.print();
+            System.out.println(currentPlayer.getName() + "s tur. (" + currentPlayer.getSymbol() + ")");
             int row = 0, col = 0;
             boolean validMove = false;
-
+            
             // För gilitga/tillgänliga spelbricka av spelare
             while (!validMove) {
                 try {
                     if(currentPlayer.getisHuman()){
-                        System.out.println("Rad: ");
+                        System.out.print("Rad: ");
                         row = main.gameScanner.nextInt() -1;
-                        System.out.println("Kolumn: "); 
+                        System.out.print("Kolumn: "); 
                         col = main.gameScanner.nextInt() -1;
                         System.out.println();
                     }else if(!currentPlayer.getisHuman()){
-
                         row = computersTurn(gameBoard.getRows());
                         col = computersTurn(gameBoard.getColulmns());
                     }
@@ -76,11 +76,13 @@ public class Game {
                         gameBoard.placeSymbol(row, col, currentPlayer.getSymbol());
                         validMove = true;
 
-                    } else {
-                        if(currentPlayer.getisHuman()){
+                    } else if (currentPlayer.getisHuman() && !gameBoard.checkSpaceValid(row, col)){
                             System.out.println("Ogiltigt, vänligen försök igen.");
                             System.out.println();
-                        }
+                    
+                    } else if (currentPlayer.getisHuman() && !gameBoard.checkSpaceAvailable(row, col)){
+                        System.out.println("Upptaget, vänligen försök igen.");
+                        System.out.println();
                     }
 
                 } catch (InputMismatchException e) { // För ogitlig inmatning
@@ -92,9 +94,8 @@ public class Game {
 
             //  Kontrollerar vinst
             if (gameBoard.checkIfWin(row, col, calculateWinCondition())) {
-                System.out.println("\n" + currentPlayer.getName() + " vann!");
-                System.out.println();
                 gameBoard.print();
+                System.out.println(currentPlayer.getName() + " vann!");
                 currentPlayer.increaseStats(gameID);
                 afterGame();
 
@@ -127,8 +128,7 @@ public class Game {
     }
   
     private void endGame() {
-        System.out.println("Game over");
-        System.out.println();
+        printExitMessage();
         Runtime.getRuntime().exit(0);
     }
 
@@ -171,19 +171,40 @@ public class Game {
     }
 
     private void printGameStats(){
-        System.out.println("\nAntal vinster i detta spel:");
+        System.out.println("\nVinster i detta spel:");
         for (Player player : main.players) {
                         System.out.println(player.getName() + ": " + player.getWins(this.gameID) + " st");
         }
     }
 
     private void printAllStats(){
-        System.out.println("\nAntal vinster totalt:");
+        System.out.println("\nVinster totalt:");
         for (Player player : main.players) {
             System.out.println(player.getName() + ": " + player.getAllWins() + " st");
         }
     }
 
+    private void printWelcomeMessage(){
+        System.out.println("****** Välkommen till spelet " + calculateWinCondition() + " i rad! ******"); 
+        System.out.println();
+        System.out.println("Spelare turas om att placera sin symbol, X eller O, på någon av de lediga platserna.");
+        System.out.println("Välj först vilken rad och sedan vilken kolumn.");
+        System.out.println("När du skrivit in siffra, tryck enter för att bekräfta.");
+        System.out.println("Den spelare som först når " + calculateWinCondition() + " i rad antingen vertikalt, horisontellt eller diagonalt vinner."); 
+        System.out.println();
+        System.out.println("*************** Lycka till! ***************");
+        System.out.println();
+    }
+
+    private void printExitMessage(){
+        System.out.println();
+        System.out.println("Tack för att du har spelat Swedish Test Mafias brädspelssamling!");
+        System.out.println("  _   _   _   _   _   _   _     _   _   _   _     _   _   _   _   _  ");
+        System.out.println(" / \\ / \\ / \\ / \\ / \\ / \\ / \\   / \\ / \\ / \\ / \\   / \\ / \\ / \\ / \\ / \\ ");
+        System.out.println("( S | W | E | D | I | S | H ) ( T | E | S | T ) ( M | A | F | I | A )");
+        System.out.println(" \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/   \\_/ \\_/ \\_/ \\_/   \\_/ \\_/ \\_/ \\_/ \\_/   ");
+        System.out.println();
+    }
 
 }
 
