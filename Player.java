@@ -171,7 +171,7 @@ public class Player {
     }
 
     public void increaseStats(int gameID) {
-        this.stats[gameID - 1] = +1;
+        this.stats[gameID - 1] =+ 1;
     }
 
     // -------Name, Symbol and isHuman-------
@@ -205,13 +205,13 @@ public class Player {
     // -------Stats-------
 
     public int getWins(int gameMode) {
-        return this.stats[gameMode];
+        return this.stats[gameMode-1];
     }
 
     public int getAllWins() {
         int totalWins = 0;
         for (int wins : this.stats) {
-            totalWins =+ wins;
+            totalWins += wins;
         }
         return totalWins;
     }

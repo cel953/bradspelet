@@ -13,8 +13,6 @@ public class Board {
 
 //Skapa bräde
     
-                                            //TODO ----------Felhantering -- kan inte vara 0, hantera här eller där det skickas?
-    
     public void create(){                                       //Constructor 1 - default name, default size 3x3
         this.create("Gameboard", 3, 3);
     }
