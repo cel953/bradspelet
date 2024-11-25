@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
@@ -45,6 +44,7 @@ public class Player {
 
 
                 System.out.println("Spelare " + (i + 1) + " har valt namn " + tempPlayer.getName() + "!");
+                System.out.println();
             }
         }
     }
@@ -60,6 +60,7 @@ public class Player {
             System.out.println("Vad vill du ha för namn på din spelare " + (index + 1) + "?");
             name = main.gameScanner.nextLine();
             validName = nameFilter(name, playerList);
+            System.out.println();
 
             if (!validName) {
                 System.out.println("Vill du fortfarande välja ett eget namn?");
@@ -143,6 +144,7 @@ public class Player {
 
         int choice = main.gameScanner.nextInt();
         main.gameScanner.nextLine();
+        System.out.println();
 
         switch (choice) {
             case 1: // Bryt ut och gör egen metod för detta?
@@ -153,6 +155,7 @@ public class Player {
                 tempPlayer.setSymbol('O');
                 System.out.println(
                         "Spelare " + tempPlayer.getName() + " har blivit tilldelad " + tempPlayer.getSymbol() + ".");
+                System.out.println();
                 break;
             case 2:
                 tempPlayer.setSymbol('O');
@@ -162,6 +165,7 @@ public class Player {
                 tempPlayer.setSymbol('X');
                 System.out.println(
                         "Spelare " + tempPlayer.getName() + " har blivit tilldelad " + tempPlayer.getSymbol() + ".");
+                System.out.println();
             default:
                 break;
         }
