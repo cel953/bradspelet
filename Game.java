@@ -157,8 +157,7 @@ public class Game {
         System.out.println("1. Spela igen");
         System.out.println("2. Tillbaka till startmeny");
         System.out.println("3. Avsluta spel");
-        int playerChoice = main.gameScanner.nextInt();
-        main.gameScanner.nextLine();
+        int playerChoice = globalTools.intInputFilter(3);
         switch (playerChoice) {
             case 1:
                 gameBoard.clear();
