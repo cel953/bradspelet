@@ -1,6 +1,5 @@
-import java.util.Scanner;
-import java.util.InputMismatchException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class main {
@@ -23,6 +22,7 @@ public class main {
            switch (gameID) {
                 case 1:
                     System.out.println("Du valde att spela Tre i rad mot dator!");
+                    System.out.println();
                     //Ropa på metod som skapa spelarlista med en spelare + dator
                     if(players.size() == 0){
                         players = createPlayerList(1, 1);
@@ -34,6 +34,7 @@ public class main {
 
                 case 2:
                     System.out.println("Du valde att spela Tre i rad mot en motståndare!");
+                    System.out.println();
                     //Ropa på metod som skapa spelarlista med en spelare
                     if(players.size() == 0){
                         players = createPlayerList(2, 0);
@@ -44,7 +45,8 @@ public class main {
                     break;
 
                 case 3:
-                    System.out.println("Du valde att spela Fyra i rad mot en motståndare!");    
+                    System.out.println("Du valde att spela Fyra i rad mot en motståndare!");
+                    System.out.println();   
                     //Ropa på metod som skapa spelarlista med en spelare
                     if(players.size() == 0){
                         players = createPlayerList(2, 0);
@@ -56,6 +58,7 @@ public class main {
 
                 case 4:
                     System.out.println("Du valde att spela Fem  i rad mot en motståndare!"); //denna ska bort
+                    System.out.println();
                     if(players.size() == 0){
                         players = createPlayerList(2, 0);
                         Player.chooseName(players);

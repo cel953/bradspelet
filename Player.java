@@ -1,6 +1,6 @@
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.io.IOException;
 
 public class Player {
 
@@ -27,12 +27,30 @@ public class Player {
 
             if (tempPlayer.getisHuman()) {
 
-                String name = checkName(index, playerList);
-                tempPlayer.setName(name);
+                System.out.println("Vill du välja namn för Spelare " + (i + 1) + "?");
+                System.out.println("1. Ja");
+                System.out.println("2. Nej");
+                int choice = intInputFilter(2);
+                switch (choice) {
+                    case 1:
+                        String name = checkName(index, playerList);
+                        tempPlayer.setName(name);
+                        break;
+
+                    case 2:
+                        tempPlayer.setName("Spelare " + (i + 1));
+                        break;
+                }
+
+
                 System.out.println("Spelare " + (i + 1) + " har valt namn " + tempPlayer.getName() + "!");
+                System.out.println();
             }
         }
     }
+
+
+
 
     public static String checkName(int index, ArrayList<Player> playerList) {
         boolean validName = false;
@@ -42,6 +60,7 @@ public class Player {
             System.out.println("Vad vill du ha för namn på din spelare " + (index + 1) + "?");
             name = main.gameScanner.nextLine();
             validName = nameFilter(name, playerList);
+            System.out.println();
 
             if (!validName) {
                 System.out.println("Vill du fortfarande välja ett eget namn?");
@@ -122,9 +141,9 @@ public class Player {
         System.out.println("Välj vilken symbol du vill ha " + tempPlayer.getName() + "!");
         System.out.println("1. X");
         System.out.println("2. O");
-
         int choice = main.gameScanner.nextInt();
         main.gameScanner.nextLine();
+        System.out.println();
 
         switch (choice) {
             case 1: // Bryt ut och gör egen metod för detta?
@@ -135,6 +154,7 @@ public class Player {
                 tempPlayer.setSymbol('O');
                 System.out.println(
                         "Spelare " + tempPlayer.getName() + " har blivit tilldelad " + tempPlayer.getSymbol() + ".");
+                System.out.println();
                 break;
             case 2:
                 tempPlayer.setSymbol('O');
@@ -144,6 +164,7 @@ public class Player {
                 tempPlayer.setSymbol('X');
                 System.out.println(
                         "Spelare " + tempPlayer.getName() + " har blivit tilldelad " + tempPlayer.getSymbol() + ".");
+                System.out.println();
             default:
                 break;
         }
@@ -200,15 +221,31 @@ public class Player {
     public static int intInputFilter(int max) {
 
         int choice = 0;
+        boolean invalidChoice = true;
 
-        while ((choice < 1) || (max < choice)) {
-            try {
-                choice = main.gameScanner.nextInt();
-                main.gameScanner.nextLine();
-            } catch (InputMismatchException e) {
-                System.out.println("Du måste välja ett av alternativen från 1 till" + max + ".");
-                continue;
-            }
+        while (invalidChoice) {
+
+                if (main.gameScanner.hasNextInt()) {
+                    choice = main.gameScanner.nextInt();
+                    invalidChoice = ((choice < 1) || (max < choice));
+                    if (invalidChoice) {
+                        System.out.println("Du måste välja ett av alternativen från 1 till " + max + ".");
+                        main.gameScanner.nextLine();
+                        continue;
+                    }
+                    else {
+                        main.gameScanner.nextLine();
+                        break;
+                    }
+                }
+            
+                else {
+                    System.out.println("Du måste välja ett av alternativen från 1 till " + max + ".");
+                    main.gameScanner.nextLine();
+                    continue;
+
+                }
+
         }
         return choice;
     }
