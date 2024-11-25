@@ -10,11 +10,10 @@ import java.util.Random;
 public class Game {
     private int gameID;
     private boolean gameOn;
-    private Queue<Player> playOrder;
+    private Queue<Integer> playOrder = new LinkedList<>();
     private Player currentPlayer;
     private Board gameBoard;
     private static Random rand = new Random();
-    private ArrayList<Player> playerList= new ArrayList<>();
 
     public Game(int gameID) {
         this.gameID = gameID;
@@ -22,8 +21,7 @@ public class Game {
     }
 
     public void gameFlow(int gameID){
-        
-        this.playerList = main.players;
+
         this.gameBoard = new Board(); // Instans av brädet
         switch (this.gameID) {
             case 1:
@@ -51,7 +49,7 @@ public class Game {
     private void gameLoop() {
         
         while (gameOn) {
-            currentPlayer = playOrder.peek(); // Tar ej bort de i spelkön
+            currentPlayer = main.players.get(playOrder.peek()); // Tar ej bort de i spelkön
             System.out.println("\n" + currentPlayer.getName() + "s tur. (" + currentPlayer.getSymbol() + ")");
             System.out.println();
             gameBoard.print();
@@ -100,7 +98,7 @@ public class Game {
                 currentPlayer.increaseStats(gameID);
                 afterGame();
 
-            } else if (gameBoard.getIsFull()) { // Kontrollerar om brädet är fullt,
+            } else if (gameBoard.getIsFull()) { // Kontrollerar om brädet är fullt
                 System.out.println("\nSpelet är oavgjort!");
                 System.out.println();
                 afterGame();
@@ -113,20 +111,22 @@ public class Game {
 
      // Metod för slumpmässig turordning
      public void createRandomOrder() {
-        this.playOrder = new LinkedList<>(); // Skapar spelkön
-        List<Player> shuffledPlayers = new ArrayList<>(this.playerList); // Kopierar kölistan för slumpmässig turordning
+        ArrayList<Integer> shuffledPlayers = new ArrayList<>(); 
+        for(int i = 0; i < main.players.size(); i++){
+            shuffledPlayers.add(i);
+        }
         Collections.shuffle(shuffledPlayers); 
         this.playOrder.addAll(shuffledPlayers);
     }
 
     // Metod för att byta spelare i turordning
     public void switchTurn() {
-        currentPlayer = playOrder.poll();
-        playOrder.offer(currentPlayer);
+        int playerIndex = this.playOrder.poll();
+        currentPlayer = main.players.get(playerIndex);
+        this.playOrder.offer(playerIndex);
     }
   
     private void endGame() {
-        gameOn = false;
         System.out.println("Game over");
         System.out.println();
         Runtime.getRuntime().exit(0);
@@ -144,16 +144,9 @@ public class Game {
     }
 
     private void afterGame(){
-
-        playerList.clear();
-        System.out.println("Antal vinster:");
-        for (Player player : playOrder) {
-
-            System.out.println(player.getName() + ": " + player.getWins(gameID) + "st");
-            playerList.add(player);
-
-        }
-        System.out.println("Vad vill du göra nu?");
+        printGameStats();
+        printAllStats();
+        System.out.println("\nVad vill du göra nu?");
         System.out.println("1. Spela igen");
         System.out.println("2. Tillbaka till startmeny");
         System.out.println("3. Avsluta spel");
@@ -175,9 +168,22 @@ public class Game {
             default:
                 break;
         }
-
-
-
     }
 
+    private void printGameStats(){
+        System.out.println("\nAntal vinster i detta spel:");
+        for (Player player : main.players) {
+                        System.out.println(player.getName() + ": " + player.getWins(this.gameID) + " st");
+        }
+    }
+
+    private void printAllStats(){
+        System.out.println("\nAntal vinster totalt:");
+        for (Player player : main.players) {
+            System.out.println(player.getName() + ": " + player.getAllWins() + " st");
+        }
+    }
+
+
 }
+
