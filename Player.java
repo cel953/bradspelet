@@ -168,7 +168,7 @@ public class Player {
     }
 
     public void increaseStats(int gameID) {
-        this.stats[gameID - 1] =+ 1;
+        this.stats[gameID - 1] += 1;
     }
 
     // -------Name, Symbol and isHuman-------

@@ -10,12 +10,10 @@ import java.util.Random;
 public class Game {
     private int gameID;
     private boolean gameOn;
-    //private Queue<Player> playOrder;
-    private Queue<Integer> playOrder;   // <<<------- Ny
+    private Queue<Integer> playOrder = new LinkedList<>();
     private Player currentPlayer;
     private Board gameBoard;
     private static Random rand = new Random();
-  //  private ArrayList<Player> playerList= new ArrayList<>();
 
     public Game(int gameID) {
         this.gameID = gameID;
@@ -114,14 +112,12 @@ public class Game {
 
      // Metod för slumpmässig turordning
      public void createRandomOrder() {
-        this.playOrder = new LinkedList<>(); // Skapar spelkön
         ArrayList<Integer> shuffledPlayers = new ArrayList<>(); // Kopierar kölistan för slumpmässig turordning
         for(int i = 0; i < main.players.size(); i++){
             shuffledPlayers.add(i);
         }
         Collections.shuffle(shuffledPlayers); 
         this.playOrder.addAll(shuffledPlayers);
-        
     }
 
     // Metod för att byta spelare i turordning
@@ -161,7 +157,7 @@ public class Game {
             System.out.println(player.getName() + ": " + player.getAllWins() + " st");
         }
 
-        System.out.println("Vad vill du göra nu?");
+        System.out.println("\nVad vill du göra nu?");
         System.out.println("1. Spela igen");
         System.out.println("2. Tillbaka till startmeny");
         System.out.println("3. Avsluta spel");

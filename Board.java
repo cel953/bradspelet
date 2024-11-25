@@ -65,7 +65,7 @@ public class Board {
         }
     }
 
-//Placera symbol                                    //TODO ----------Felhantering och skicka true eller ha bara void?----
+//Placera symbol                                    
     public void placeSymbol(int row, int column, char symbol){ 
         if (this.checkSpaceAvailable(row, column)){
             this.table[row][column] = symbol;
