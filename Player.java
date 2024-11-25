@@ -186,14 +186,14 @@ public class Player {
     public int getWins(int gameMode) {
         return this.stats[gameMode];
     }
-    /*
-     * public int getTotalStat(int stat) {
-     * int total = 0;
-     * for (int gameMode = 0; gameMode < this.stats.length; gameMode++)
-     * total =+ this.stats[gameMode][stat];
-     * return total;
-     * }
-     */
+
+    public int getAllWins() {
+        int totalWins = 0;
+        for (int wins : this.stats) {
+            totalWins =+ wins;
+        }
+        return totalWins;
+    }
 
     // -------Convenient choice handler-------
 
