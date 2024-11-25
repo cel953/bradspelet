@@ -1,5 +1,8 @@
 # bradspelet
 
+
+**Hur man spelar spelet:**
+
 Spela mot datorn
 Spela mot en annan spelare
 Poängöversikt
