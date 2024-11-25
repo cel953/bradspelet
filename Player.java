@@ -142,7 +142,7 @@ public class Player {
         System.out.println("1. X");
         System.out.println("2. O");
 
-        int choice = globalTools.intInputFilter(2);
+        int choice = intInputFilter(2);
 
         switch (choice) {
             case 1: // Bryt ut och gör egen metod för detta?
