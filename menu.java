@@ -1,5 +1,3 @@
-
-
 import java.util.InputMismatchException;
 
 
@@ -12,6 +10,7 @@ public class menu {
         System.out.println("2. Tre i rad mot en motståndare");
         System.out.println("3. Fyra i rad mot en motståndare");
         System.out.println("4. Fem i rad mot en motståndare");
+        System.out.println();
 
         int chooseGame = 0;
         int currentGameId = 0;
@@ -23,6 +22,7 @@ public class menu {
             try {
 
                 chooseGame = main.gameScanner.nextInt();
+                System.out.println();
                 main.gameScanner.nextLine(); // Rensar bort ogiltiga symboler i scannern
 
             } catch (InputMismatchException e) {
