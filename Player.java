@@ -1,7 +1,7 @@
 
 import java.util.ArrayList;
-// import.java.util.InputMismatchException
-// import.io.IOException
+import java.util.InputMismatchException;
+import java.io.IOException;
 
 public class Player {
 
@@ -66,7 +66,7 @@ public class Player {
                 System.out.println("1. Ja.");
                 System.out.println("2. Nej.");
                 int choice = globalTools.intInputFilter(2);
-                
+
                 name = ("Spelare " + (index + 1));
 
 
