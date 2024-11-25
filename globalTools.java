@@ -1,4 +1,6 @@
-public class globalTools {
+// Inspirerat av Tan från MT24
+
+public class globalTools { 
 
 
         // -------Convenient choice handler-------
