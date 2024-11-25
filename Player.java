@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.io.IOException;
 
 public class Player {
 
@@ -57,7 +55,7 @@ public class Player {
         String name = ("Spelare " + (index + 1));
 
         while (!validName) {
-            System.out.println("Vad vill du ha för namn på din spelare " + (index + 1) + "?");
+            System.out.println("Vad vill du ha för namn på spelare " + (index + 1) + "?");
             name = main.gameScanner.nextLine();
             validName = nameFilter(name, playerList);
             System.out.println();
@@ -149,21 +147,21 @@ public class Player {
             case 1: // Bryt ut och gör egen metod för detta?
                 tempPlayer.setSymbol('X');
                 System.out.println(
-                        "Spelare " + tempPlayer.getName() + " har valt symbol " + tempPlayer.getSymbol() + ".");
+                        tempPlayer.getName() + " har valt symbol " + tempPlayer.getSymbol() + ".");
                 tempPlayer = playerList.get(1);
                 tempPlayer.setSymbol('O');
                 System.out.println(
-                        "Spelare " + tempPlayer.getName() + " har blivit tilldelad " + tempPlayer.getSymbol() + ".");
+                        tempPlayer.getName() + " har blivit tilldelad " + tempPlayer.getSymbol() + ".");
                 System.out.println();
                 break;
             case 2:
                 tempPlayer.setSymbol('O');
                 System.out.println(
-                        "Spelare " + tempPlayer.getName() + " har valt symbol " + tempPlayer.getSymbol() + ".");
+                         tempPlayer.getName() + " har valt symbol " + tempPlayer.getSymbol() + ".");
                 tempPlayer = playerList.get(1);
                 tempPlayer.setSymbol('X');
                 System.out.println(
-                        "Spelare " + tempPlayer.getName() + " har blivit tilldelad " + tempPlayer.getSymbol() + ".");
+                        tempPlayer.getName() + " har blivit tilldelad " + tempPlayer.getSymbol() + ".");
                 System.out.println();
             default:
                 break;
