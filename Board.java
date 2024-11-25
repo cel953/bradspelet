@@ -256,7 +256,7 @@ public class Board {
 
     private void printRow(int x){
         if(x < 9){
-            System.out.print(" ");
+            System.out.print(" ");      //Om talet är ensiffrigt, skriv ut extra mellanslag för att jämna till rader och kolumner
         }
         System.out.print((x+1) + " | ");
 
@@ -271,7 +271,7 @@ public class Board {
         System.out.print("   | ");
         for(int m = 1; m <= this.table[0].length; m++){
             if(m <= 9){
-                System.out.print(m + " | ");
+                System.out.print(m + " | ");    //Om talet är ensiffrigt, skriv ut extra mellanslag för att jämna till rader och kolumner
             }else{
                 System.out.print(m + "| ");
             }
