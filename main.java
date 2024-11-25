@@ -57,7 +57,7 @@ public class main {
                     break;
 
                 case 4:
-                    System.out.println("Du valde att spela Fem  i rad mot en motståndare!"); //denna ska bort
+                    System.out.println("Du valde att spela Fem  i rad mot en motståndare!");
                     System.out.println();
                     if(players.size() == 0){
                         players = createPlayerList(2, 0);

@@ -16,7 +16,7 @@ public class globalTools {
                         choice = main.gameScanner.nextInt();
                         invalidChoice = ((choice < 1) || (max < choice));
                         if (invalidChoice) {
-                            System.out.println("Du måste välja ett av alternativen från 1 till " + max + ".");
+                            System.out.println("Du måste välja ett av alternativen från 1 - " + max + ".");
                             main.gameScanner.nextLine();
                             continue;
                         }

@@ -51,7 +51,7 @@ public class menu {
 
                 default:
                     System.out.println(
-                            "Spel med siffan " + chooseGame + " finns tyvärr inte i listan. Välj mellan 1,2 eller 3");
+                            "Spel med siffan " + chooseGame + " finns tyvärr inte i listan. Välj mellan 1,2, 3 eller 4");
                     break;
             }
         }
