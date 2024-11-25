@@ -66,7 +66,6 @@ public class Player {
                 System.out.println("1. Ja.");
                 System.out.println("2. Nej.");
                 int choice = intInputFilter(2);
-
                 name = ("Spelare " + (index + 1));
 
 
