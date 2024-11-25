@@ -1,7 +1,5 @@
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.io.IOException;
 
 public class Player {
 
@@ -31,7 +29,7 @@ public class Player {
                 System.out.println("Vill du välja namn för Spelare " + (i + 1) + "?");
                 System.out.println("1. Ja");
                 System.out.println("2. Nej");
-                int choice = intInputFilter(2);
+                int choice = globalTools.intInputFilter(2);
                 switch (choice) {
                     case 1:
                         String name = checkName(index, playerList);
@@ -65,7 +63,7 @@ public class Player {
                 System.out.println("Vill du fortfarande välja ett eget namn?");
                 System.out.println("1. Ja.");
                 System.out.println("2. Nej.");
-                int choice = intInputFilter(2);
+                int choice = globalTools.intInputFilter(2);
                 name = ("Spelare " + (index + 1));
 
 
@@ -141,8 +139,7 @@ public class Player {
         System.out.println("1. X");
         System.out.println("2. O");
 
-        int choice = main.gameScanner.nextInt();
-        main.gameScanner.nextLine();
+        int choice = globalTools.intInputFilter(2);
 
         switch (choice) {
             case 1: // Bryt ut och gör egen metod för detta?
