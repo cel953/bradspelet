@@ -31,7 +31,7 @@ public class Player {
                 System.out.println("Vill du välja namn för Spelare " + (i + 1) + "?");
                 System.out.println("1. Ja");
                 System.out.println("2. Nej");
-                int choice = globalTools.intInputFilter(2);
+                int choice = intInputFilter(2);
                 switch (choice) {
                     case 1:
                         String name = checkName(index, playerList);
@@ -65,7 +65,7 @@ public class Player {
                 System.out.println("Vill du fortfarande välja ett eget namn?");
                 System.out.println("1. Ja.");
                 System.out.println("2. Nej.");
-                int choice = globalTools.intInputFilter(2);
+                int choice = intInputFilter(2);
 
                 name = ("Spelare " + (index + 1));
 
