@@ -21,8 +21,7 @@ public class Game {
     }
 
     public void gameFlow(int gameID){
-        
-//        this.playerList = main.players;
+
         this.gameBoard = new Board(); // Instans av brädet
         switch (this.gameID) {
             case 1:
@@ -99,7 +98,7 @@ public class Game {
                 currentPlayer.increaseStats(gameID);
                 afterGame();
 
-            } else if (gameBoard.getIsFull()) { // Kontrollerar om brädet är fullt,
+            } else if (gameBoard.getIsFull()) { // Kontrollerar om brädet är fullt
                 System.out.println("\nSpelet är oavgjort!");
                 System.out.println();
                 afterGame();
@@ -112,7 +111,7 @@ public class Game {
 
      // Metod för slumpmässig turordning
      public void createRandomOrder() {
-        ArrayList<Integer> shuffledPlayers = new ArrayList<>(); // Kopierar kölistan för slumpmässig turordning
+        ArrayList<Integer> shuffledPlayers = new ArrayList<>(); 
         for(int i = 0; i < main.players.size(); i++){
             shuffledPlayers.add(i);
         }
@@ -122,13 +121,12 @@ public class Game {
 
     // Metod för att byta spelare i turordning
     public void switchTurn() {
-        int temp = this.playOrder.poll();
-        currentPlayer = main.players.get(temp);
-        this.playOrder.offer(temp);
+        int playerIndex = this.playOrder.poll();
+        currentPlayer = main.players.get(playerIndex);
+        this.playOrder.offer(playerIndex);
     }
   
     private void endGame() {
-        gameOn = false;
         System.out.println("Game over");
         System.out.println();
         Runtime.getRuntime().exit(0);
@@ -146,17 +144,8 @@ public class Game {
     }
 
     private void afterGame(){
-
-        System.out.println("Antal vinster i detta spel:");
-
-        for (Player player : main.players) {
-                        System.out.println(player.getName() + ": " + player.getWins(gameID) + " st");
-        }
-        System.out.println("Antal vinster totalt:");
-        for (Player player : main.players) {
-            System.out.println(player.getName() + ": " + player.getAllWins() + " st");
-        }
-
+        printGameStats();
+        printAllStats();
         System.out.println("\nVad vill du göra nu?");
         System.out.println("1. Spela igen");
         System.out.println("2. Tillbaka till startmeny");
@@ -179,10 +168,22 @@ public class Game {
             default:
                 break;
         }
-
-
-
     }
+
+    private void printGameStats(){
+        System.out.println("\nAntal vinster i detta spel:");
+        for (Player player : main.players) {
+                        System.out.println(player.getName() + ": " + player.getWins(this.gameID) + " st");
+        }
+    }
+
+    private void printAllStats(){
+        System.out.println("\nAntal vinster totalt:");
+        for (Player player : main.players) {
+            System.out.println(player.getName() + ": " + player.getAllWins() + " st");
+        }
+    }
+
 
 }
 
