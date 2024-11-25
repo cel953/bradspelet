@@ -8,6 +8,7 @@ public class main {
 
     public static void main(String[] args) {
             while (true) {
+            System.out.println();
             System.out.println("Hej och välkommen till Swedish Test Mafias brädspelssamling!");
             System.out.println();
             int gameID = menu.selectGame();
@@ -88,7 +89,7 @@ public class main {
 
         for (int i = 1; i <= computer; i++){
             Player player = new Player();
-            player.setName("Computer");
+            player.setName("Datorn");
             player.setisHuman(false);
             playerList.add(player);
         }
