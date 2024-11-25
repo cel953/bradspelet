@@ -141,9 +141,9 @@ public class Player {
         System.out.println("Välj vilken symbol du vill ha " + tempPlayer.getName() + "!");
         System.out.println("1. X");
         System.out.println("2. O");
-
         int choice = main.gameScanner.nextInt();
-        main.gameScanner.nextLine()
+        main.gameScanner.nextLine();
+        
         switch (choice) {
             case 1: // Bryt ut och gör egen metod för detta?
                 tempPlayer.setSymbol('X');
