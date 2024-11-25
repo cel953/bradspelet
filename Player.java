@@ -27,12 +27,30 @@ public class Player {
 
             if (tempPlayer.getisHuman()) {
 
-                String name = checkName(index, playerList);
-                tempPlayer.setName(name);
+                System.out.println("Vill du välja namn för Spelare " + (i + 1) + "?");
+                System.out.println("1. Ja");
+                System.out.println("2. Nej");
+                int choice = intInputFilter(2);
+
+                switch (choice) {
+                    case 1:
+                        String name = checkName(index, playerList);
+                        tempPlayer.setName(name);
+                        break;
+
+                    case 2:
+                        tempPlayer.setName("Spelare " + (i + 1));
+                        break;
+                }
+
+
                 System.out.println("Spelare " + (i + 1) + " har valt namn " + tempPlayer.getName() + "!");
             }
         }
     }
+
+
+
 
     public static String checkName(int index, ArrayList<Player> playerList) {
         boolean validName = false;
