@@ -99,6 +99,7 @@ public class Game {
                 afterGame();
 
             } else if (gameBoard.getIsFull()) { // Kontrollerar om brädet är fullt
+                gameBoard.print();
                 System.out.println("\nSpelet är oavgjort!");
                 System.out.println();
                 afterGame();
