@@ -2,7 +2,6 @@
 
 public class globalTools { 
 
-
         // -------Convenient choice handler-------
 
         public static int intInputFilter(int max) {
@@ -36,5 +35,4 @@ public class globalTools {
             }
             return choice;
         }
-    
     }
