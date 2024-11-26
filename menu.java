@@ -22,6 +22,7 @@ public class menu {
             try {
 
                 chooseGame = globalTools.intInputFilter(4);
+                System.out.println();
 
             } catch (InputMismatchException e) {
                 System.out.println("Du måste skriva in ett heltal");

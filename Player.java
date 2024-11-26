@@ -29,6 +29,7 @@ public class Player {
                 System.out.println("1. Ja");
                 System.out.println("2. Nej");
                 int choice = globalTools.intInputFilter(2);
+                System.out.println();
                 switch (choice) {
                     case 1:
                         String name = checkName(index, playerList);
