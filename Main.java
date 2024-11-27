@@ -1,16 +1,46 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Maine {
+public class Main {
     protected static Scanner gameScanner = new Scanner(System.in);
     protected static ArrayList<Player> players = new ArrayList<>();
+    protected static ArrayList<Player> restingPlayers = new ArrayList<>();
+    protected static int activeGameID = 0;
+    protected static boolean nameForPlayer2IsSet = false;
 
     public static void main(String[] args) {
             while (true) {
             System.out.println();
             System.out.println("Hej och välkommen till Swedish Test Mafias brädspelssamling!");
             System.out.println();
-            int gameID = Menue.selectGame();
+            int gameID = Menu.selectGame();
+            if (activeGameID != gameID){
+                switch (activeGameID) {
+                    case 0:
+                        activeGameID = gameID;    
+                        break;
+                    case 1:
+                        //byt från dator till spelare 2
+                        restPlayer(1);
+                        fetchRestingPlayer(0);
+                        if (!nameForPlayer2IsSet) {
+                            Player.chooseNameForPlayer(players.get(1));
+                            nameForPlayer2IsSet = true;
+                        }
+                        activeGameID = gameID;
+                        break;
+                    case 2, 3, 4:
+                        if(gameID == 1){
+                            //byt från spelare 2 till dator
+                            restPlayer(1);                                
+                            fetchRestingPlayer(0);
+                            activeGameID = gameID;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
             startGame(gameID);
         }
     }
@@ -19,82 +49,99 @@ public class Maine {
     public static void startGame(int gameID) {
         Game game = new Game(gameID);
         int chooseGame = 0;
-           switch (gameID) {
+            switch (gameID) {
                 case 1:
                     System.out.println("Du valde att spela Tre i rad mot dator!");
                     System.out.println();
-                    //Ropa på metod som skapa spelarlista med en spelare + dator
                     if(players.size() == 0){
-                        players = createPlayerList(1, 1);
+                        createPlayerList(1, 1);
                         Player.chooseName(players);
                         Player.chooseSymbol(players);
                     }
-                    game.gameFlow(gameID);
                     break;
 
                 case 2:
-                    System.out.println("Du valde att spela Tre i rad mot en motståndare!");
-                    System.out.println();
-                    //Ropa på metod som skapa spelarlista med en spelare
+                    System.out.println("Du valde att spela Tre i rad mot en motståndare!\n");
                     if(players.size() == 0){
-                        players = createPlayerList(2, 0);
+                        createPlayerList(2, 0);
                         Player.chooseName(players);
                         Player.chooseSymbol(players);
+                        nameForPlayer2IsSet = true;
                     }
-                    game.gameFlow(gameID);
+
                     break;
 
                 case 3:
-                    System.out.println("Du valde att spela Fyra i rad mot en motståndare!");
-                    System.out.println();   
-                    //Ropa på metod som skapa spelarlista med en spelare
+                    System.out.println("Du valde att spela Fyra i rad mot en motståndare!\n");
                     if(players.size() == 0){
-                        players = createPlayerList(2, 0);
+                        createPlayerList(2, 0);
                         Player.chooseName(players);
                         Player.chooseSymbol(players);
                     }
-                    game.gameFlow(gameID);
+                    nameForPlayer2IsSet = true;
                     break;
 
                 case 4:
-                    System.out.println("Du valde att spela Fem  i rad mot en motståndare!");
-                    System.out.println();
+                    System.out.println("Du valde att spela Fem  i rad mot en motståndare!\n");
                     if(players.size() == 0){
-                        players = createPlayerList(2, 0);
+                        createPlayerList(2, 0);
                         Player.chooseName(players);
                         Player.chooseSymbol(players);
                     }
-                    game.gameFlow(gameID);
+                    nameForPlayer2IsSet = true;
                     break;
                 default:
                     System.out.println(
                             "Spel med siffan " + chooseGame + " finns tyvärr inte i listan. Välj mellan 1,2 eller 3");
                     break;
-
-    
-
             }
+
+            if(restingPlayers.size() == 0){
+                creatRestingPlayer();
+            }
+
+        game.gameFlow(gameID);
     }
 
-    private static ArrayList<Player> createPlayerList(int human, int computer){
-
-        ArrayList<Player> playerList = new ArrayList<>();
+    private static void createPlayerList(int human, int computer){
 
         for (int i = 1; i <= human; i++){
             Player player = new Player();
             player.setisHuman(true);
-            playerList.add(player);
+            players.add(player);
         }
 
         for (int i = 1; i <= computer; i++){
             Player player = new Player();
             player.setName("Datorn");
             player.setisHuman(false);
-            playerList.add(player);
+            players.add(player);
         }
-        return playerList; // ska returnera en lista
+    }
+
+    public static void creatRestingPlayer(){
+        Player playerToAdd = new Player();
+        Player player = players.get(1); //Hämta spelare 2
+        if(player.getisHuman()) {            
+            playerToAdd = playerToAdd.createPlayer("Datorn", false);
+            playerToAdd.setSymbol(player.getSymbol());
+            restingPlayers.add(playerToAdd);
+        }else if(!player.getisHuman()){
+            playerToAdd = playerToAdd.createPlayer("Spelare 2", true);
+            playerToAdd.setSymbol(player.getSymbol());
+            restingPlayers.add(playerToAdd);
+        }
+    }
+
+    
+    public static void restPlayer(int index){
+        restingPlayers.add(players.get(index));
+        players.remove(index);
     }
     
-    
+    public static void fetchRestingPlayer(int index){
+        players.add(restingPlayers.get(index));
+        restingPlayers.remove(index);
+    }
 
 }
