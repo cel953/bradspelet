@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class main {
+public class Main {
     protected static Scanner gameScanner = new Scanner(System.in);
     protected static ArrayList<Player> players = new ArrayList<>();
 
@@ -11,7 +11,7 @@ public class main {
             System.out.println();
             System.out.println("Hej och välkommen till Swedish Test Mafias brädspelssamling!");
             System.out.println();
-            int gameID = menu.selectGame();
+            int gameID = Menu.selectGame();
             startGame(gameID);
         }
     }

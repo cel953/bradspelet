@@ -28,7 +28,7 @@ public class Player {
                 System.out.println("Vill du välja namn för Spelare " + (i + 1) + "?");
                 System.out.println("1. Ja");
                 System.out.println("2. Nej");
-                int choice = globalTools.intInputFilter(2);
+                int choice = GlobalTools.intInputFilter(2);
                 System.out.println();
                 switch (choice) {
                     case 1:
@@ -57,7 +57,7 @@ public class Player {
 
         while (!validName) {
             System.out.println("Vad vill du ha för namn på spelare " + (index + 1) + "?");
-            name = main.gameScanner.nextLine();
+            name = Main.gameScanner.nextLine();
             validName = nameFilter(name, playerList);
             System.out.println();
 
@@ -65,7 +65,7 @@ public class Player {
                 System.out.println("Vill du fortfarande välja ett eget namn?");
                 System.out.println("1. Ja.");
                 System.out.println("2. Nej.");
-                int choice = globalTools.intInputFilter(2);
+                int choice = GlobalTools.intInputFilter(2);
                 name = ("Spelare " + (index + 1));
 
 
@@ -92,7 +92,6 @@ public class Player {
             boolean isLong = (name.length() > 12);
             boolean isDuplicate = false;
             boolean isEmpty = false;
-            boolean isIllegal = false;
             int spaceCount = 0;
 
             for (char c : (name.toCharArray())) { //Tar just nu "", och mellanslag före samt efter sista tecknet
@@ -140,7 +139,7 @@ public class Player {
         System.out.println("Välj vilken symbol du vill ha " + tempPlayer.getName() + "!");
         System.out.println("1. X");
         System.out.println("2. O");
-        int choice = globalTools.intInputFilter(2);
+        int choice = GlobalTools.intInputFilter(2);
         System.out.println();
 
         switch (choice) {
