@@ -97,7 +97,7 @@ public class Main {
             }
 
             if(restingPlayers.size() == 0){
-                creatRestingPlayer();
+                createRestingPlayer();
             }
 
         game.gameFlow(gameID);
@@ -119,7 +119,7 @@ public class Main {
         }
     }
 
-    public static void creatRestingPlayer(){
+    public static void createRestingPlayer(){
         Player playerToAdd = new Player();
         Player player = players.get(1); //Hämta spelare 2
         if(player.getisHuman()) {            
