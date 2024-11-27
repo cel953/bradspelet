@@ -50,7 +50,7 @@ public class Game {
         printWelcomeMessage();
 
         while (gameOn) {
-            currentPlayer = Main.players.get(playOrder.peek()); // Tar ej bort de i spelkön
+            currentPlayer = Maine.players.get(playOrder.peek()); // Tar ej bort de i spelkön
             gameBoard.print();
             System.out.println(currentPlayer.getName() + "s tur. (" + currentPlayer.getSymbol() + ")");
             int row = 0, col = 0;
@@ -61,9 +61,9 @@ public class Game {
                 try {
                     if(currentPlayer.getisHuman()){
                         System.out.print("Rad: ");
-                        row = Main.gameScanner.nextInt() -1;
+                        row = Maine.gameScanner.nextInt() -1;
                         System.out.print("Kolumn: "); 
-                        col = Main.gameScanner.nextInt() -1;
+                        col = Maine.gameScanner.nextInt() -1;
                         System.out.println();
                     }else if(!currentPlayer.getisHuman()){
                         row = computersTurn(gameBoard.getRows());
@@ -87,7 +87,7 @@ public class Game {
                 } catch (InputMismatchException e) { // För ogitlig inmatning
                     System.out.println("Ogitligt värde, vänligen mata endast in nummer.");
                     System.out.println();
-                    Main.gameScanner.nextLine(); // Rensar scannern
+                    Maine.gameScanner.nextLine(); // Rensar scannern
                 }
             }
 
@@ -113,7 +113,7 @@ public class Game {
      // Metod för slumpmässig turordning
      public void createRandomOrder() {
         ArrayList<Integer> shuffledPlayers = new ArrayList<>(); 
-        for(int i = 0; i < Main.players.size(); i++){
+        for(int i = 0; i < Maine.players.size(); i++){
             shuffledPlayers.add(i);
         }
         Collections.shuffle(shuffledPlayers); 
@@ -123,7 +123,7 @@ public class Game {
     // Metod för att byta spelare i turordning
     public void switchTurn() {
         int playerIndex = this.playOrder.poll();
-        currentPlayer = Main.players.get(playerIndex);
+        currentPlayer = Maine.players.get(playerIndex);
         this.playOrder.offer(playerIndex);
     }
   
@@ -150,7 +150,7 @@ public class Game {
         System.out.println("1. Spela igen");
         System.out.println("2. Tillbaka till startmeny");
         System.out.println("3. Avsluta spel");
-        int playerChoice = GlobalTools.intInputFilter(3);
+        int playerChoice = GlobalToolse.intInputFilter(3);
         switch (playerChoice) {
             case 1:
                 gameBoard.clear();
@@ -172,14 +172,14 @@ public class Game {
 
     private void printGameStats(){
         System.out.println("\nVinster i detta spel:");
-        for (Player player : Main.players) {
+        for (Player player : Maine.players) {
                         System.out.println(player.getName() + ": " + player.getWins(this.gameID) + " st");
         }
     }
 
     private void printAllStats(){
         System.out.println("\nVinster totalt:");
-        for (Player player : Main.players) {
+        for (Player player : Maine.players) {
             System.out.println(player.getName() + ": " + player.getAllWins() + " st");
         }
     }
