@@ -1,6 +1,5 @@
-// Inspirerat av Tan från MT24
 
-public class globalTools { 
+public class GlobalTools { 
 
         // -------Convenient choice handler-------
 
@@ -11,23 +10,23 @@ public class globalTools {
     
             while (invalidChoice) {
     
-                    if (main.gameScanner.hasNextInt()) {
-                        choice = main.gameScanner.nextInt();
+                    if (Main.gameScanner.hasNextInt()) {
+                        choice = Main.gameScanner.nextInt();
                         invalidChoice = ((choice < 1) || (max < choice));
                         if (invalidChoice) {
                             System.out.println("Du måste välja ett av alternativen från 1 - " + max + ".");
-                            main.gameScanner.nextLine();
+                            Main.gameScanner.nextLine();
                             continue;
                         }
                         else {
-                            main.gameScanner.nextLine();
+                            Main.gameScanner.nextLine();
                             break;
                         }
                     }
                 
                     else {
                         System.out.println("Du måste välja ett av alternativen från 1 - " + max + ".");
-                        main.gameScanner.nextLine();
+                        Main.gameScanner.nextLine();
                         continue;
     
                     }
