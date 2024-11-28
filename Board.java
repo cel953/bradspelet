@@ -9,7 +9,7 @@ public class Board {
     private int spacesTotal = 9;
 
 
-//  -------- Public Methods ---------
+//  -------- Public methods ---------
 
 //Skapa bräde
     
@@ -47,7 +47,7 @@ public class Board {
         System.out.println("");
     }
     
-//Kolla om space is valid - här kontrolleras att platsen finns med på brädet
+//Kolla om platsen finns med på brädet
     public boolean checkSpaceValid (int row, int column){
         if(row >= 0 && row < this.table.length && column >= 0 && column < this.table[0].length){
             return true;
@@ -77,27 +77,36 @@ public class Board {
    }
  
 
-//Kolla om vinst
-    public boolean checkIfWin(int row, int column, int numbersInRowToWin){
+//Kontrollera vinst
+    public boolean checkIfWin(int row, int column, int winCondition){
         int horizontal = checkHorizontal(row, column);
         int vertical = checkVertical(row, column);
         int diagonalDown = checkDiagonalDown(row, column);
         int diagonalUp = checkDiagonalUp(row, column);
-/*
-        System.out.println("Vertikalt : " + vertical);     ///För enkel felsökning         
-        System.out.println("Horisontellt : " + horizontal);  
-        System.out.println("Diagonalt nedåt: " + diagonalDown);
-        System.out.println("Diagonalt uppåt: " + diagonalUp);
-*/        
-        if( vertical >= numbersInRowToWin || 
-            horizontal >= numbersInRowToWin ||
-            diagonalDown >= numbersInRowToWin ||
-            diagonalUp >= numbersInRowToWin)
+       
+        if( vertical >= winCondition || 
+            horizontal >= winCondition ||
+            diagonalDown >= winCondition ||
+            diagonalUp >= winCondition)
         {
             return true;
         }else{
             return false;
         }
+    }
+
+    public boolean checkIfFull() {
+        return this.getIsFull();
+    }
+
+    public void clear(){
+        for (int i = 0; i < this.table.length; i++) {
+            for (int j = 0; j < this.table[0].length; j++) {
+                this.table[i][j] = ' ';
+            }
+        }
+        this.setIsFull(false);
+        this.setSpacesTaken(0);
     }
 
 // ---------- Private methods -------
@@ -281,21 +290,6 @@ public class Board {
         }
         System.out.println("");
     }
-
-    public boolean checkIfFull() {
-        return this.getIsFull();
-    }
-
-    public void clear(){
-        for (int i = 0; i < this.table.length; i++) {
-            for (int j = 0; j < this.table[0].length; j++) {
-                this.table[i][j] = ' ';
-            }
-        }
-        this.setIsFull(false);
-        this.setSpacesTaken(0);
-    }
-
 
 
 // ------- Getters and setters --------
