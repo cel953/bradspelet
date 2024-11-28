@@ -1,7 +1,6 @@
 import java.util.InputMismatchException;
 
-
-public class menu {
+public class Menu {
     
     public static int selectGame() {
 
@@ -21,7 +20,7 @@ public class menu {
             System.out.println("Skriv in 1, 2, 3 eller 4 beroende på vilket spel du vill spela");
             try {
 
-                chooseGame = globalTools.intInputFilter(4);
+                chooseGame = GlobalTools.intInputFilter(4);
                 System.out.println();
 
             } catch (InputMismatchException e) {
