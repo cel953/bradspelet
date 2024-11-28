@@ -21,6 +21,9 @@ public class Main {
                         break;
                     case 1:
                         //byt från dator till spelare 2
+                        if(restingPlayers.size() == 0){
+                            createRestingPlayer();
+                        }
                         restPlayer(1);
                         fetchRestingPlayer(0);
                         if (!nameForPlayer2IsSet) {
@@ -32,10 +35,13 @@ public class Main {
                     case 2, 3, 4:
                         if(gameID == 1){
                             //byt från spelare 2 till dator
+                            if(restingPlayers.size() == 0){
+                                createRestingPlayer();
+                            }
                             restPlayer(1);                                
                             fetchRestingPlayer(0);
-                            activeGameID = gameID;
                         }
+                        activeGameID = gameID;
                         break;
                     default:
                         break;
@@ -96,10 +102,6 @@ public class Main {
                     break;
             }
 
-            if(restingPlayers.size() == 0){
-                creatRestingPlayer();
-            }
-
         game.gameFlow(gameID);
     }
 
@@ -119,7 +121,7 @@ public class Main {
         }
     }
 
-    public static void creatRestingPlayer(){
+    public static void createRestingPlayer(){
         Player playerToAdd = new Player();
         Player player = players.get(1); //Hämta spelare 2
         if(player.getisHuman()) {            
