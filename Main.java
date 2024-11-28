@@ -21,6 +21,9 @@ public class Main {
                         break;
                     case 1:
                         //byt från dator till spelare 2
+                        if(restingPlayers.size() == 0){
+                            createRestingPlayer();
+                        }
                         restPlayer(1);
                         fetchRestingPlayer(0);
                         if (!nameForPlayer2IsSet) {
@@ -32,10 +35,13 @@ public class Main {
                     case 2, 3, 4:
                         if(gameID == 1){
                             //byt från spelare 2 till dator
+                            if(restingPlayers.size() == 0){
+                                createRestingPlayer();
+                            }
                             restPlayer(1);                                
                             fetchRestingPlayer(0);
-                            activeGameID = gameID;
                         }
+                        activeGameID = gameID;
                         break;
                     default:
                         break;
@@ -94,10 +100,6 @@ public class Main {
                     System.out.println(
                             "Spel med siffan " + chooseGame + " finns tyvärr inte i listan. Välj mellan 1,2 eller 3");
                     break;
-            }
-
-            if(restingPlayers.size() == 0){
-                createRestingPlayer();
             }
 
         game.gameFlow(gameID);

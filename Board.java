@@ -47,7 +47,7 @@ public class Board {
         System.out.println("");
     }
     
-//Kolla om space is valid - här kontrolleras att platsen finns med på brädet
+//Kolla om platsen finns med på brädet
     public boolean checkSpaceValid (int row, int column){
         if(row >= 0 && row < this.table.length && column >= 0 && column < this.table[0].length){
             return true;
