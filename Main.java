@@ -14,39 +14,7 @@ public class Main {
             System.out.println("Hej och välkommen till Swedish Test Mafias brädspelssamling!");
             System.out.println();
             int gameID = Menu.selectGame();
-            if (activeGameID != gameID){
-                switch (activeGameID) {
-                    case 0:
-                        activeGameID = gameID;    
-                        break;
-                    case 1:
-                        //byt från dator till spelare 2
-                        if(restingPlayers.size() == 0){
-                            createRestingPlayer();
-                        }
-                        restPlayer(1);
-                        fetchRestingPlayer(0);
-                        if (!nameForPlayer2IsSet) {
-                            Player.chooseNameForPlayer(players.get(1));
-                            nameForPlayer2IsSet = true;
-                        }
-                        activeGameID = gameID;
-                        break;
-                    case 2, 3, 4:
-                        if(gameID == 1){
-                            //byt från spelare 2 till dator
-                            if(restingPlayers.size() == 0){
-                                createRestingPlayer();
-                            }
-                            restPlayer(1);                                
-                            fetchRestingPlayer(0);
-                        }
-                        activeGameID = gameID;
-                        break;
-                    default:
-                        break;
-                }
-            }
+            playerListAdjustment(gameID);
             startGame(gameID);
         }
     }
@@ -135,6 +103,41 @@ public class Main {
         }
     }
 
+    public static void playerListAdjustment(int gameID){
+        if (activeGameID != gameID){
+            switch (activeGameID) {
+                case 0:
+                    activeGameID = gameID;    
+                    break;
+                case 1:
+                    //byt från dator till spelare 2
+                    if(restingPlayers.size() == 0){
+                        createRestingPlayer();
+                    }
+                    restPlayer(1);
+                    fetchRestingPlayer(0);
+                    if (!nameForPlayer2IsSet) {
+                        Player.chooseNameForPlayer(players.get(1));
+                        nameForPlayer2IsSet = true;
+                    }
+                    activeGameID = gameID;
+                    break;
+                case 2, 3, 4:
+                    if(gameID == 1){
+                        //byt från spelare 2 till dator
+                        if(restingPlayers.size() == 0){
+                            createRestingPlayer();
+                        }
+                        restPlayer(1);                                
+                        fetchRestingPlayer(0);
+                    }
+                    activeGameID = gameID;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     
     public static void restPlayer(int index){
         restingPlayers.add(players.get(index));
