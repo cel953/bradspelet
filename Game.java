@@ -147,10 +147,8 @@ public class Game {
     private void afterGame(){
         printGameStats();
         printAllStats();
-        System.out.println("\nVad vill du göra nu?");
-        System.out.println("1. Spela igen");
-        System.out.println("2. Tillbaka till startmeny");
-        System.out.println("3. Avsluta spel");
+        printGameOverMenu();
+
         int playerChoice = GlobalTools.intInputFilter(3);
         switch (playerChoice) {
             case 1:
@@ -170,6 +168,14 @@ public class Game {
                 break;
         }
     }
+
+    private void printGameOverMenu(){
+        System.out.println("\nVad vill du göra nu?");
+        System.out.println("1. Spela igen");
+        System.out.println("2. Tillbaka till startmeny");
+        System.out.println("3. Avsluta spel");
+    }
+
 
     private void printGameStats(){
         System.out.println("\nVinster i detta spel:");
