@@ -49,7 +49,11 @@ public class Board {
     
 //Kolla om platsen finns med på brädet
     public boolean checkSpaceValid (int row, int column){
-        if(row >= 0 && row < this.table.length && column >= 0 && column < this.table[0].length){
+        return checkSpaceValid(this.getTable(), row, column);
+    }
+//Method overloading
+    public static boolean checkSpaceValid(char[][] table, int row, int column){
+        if(row >= 0 && row < table.length && column >= 0 && column < table[0].length){
             return true;
         }else{
             return false;
@@ -77,23 +81,7 @@ public class Board {
    }
  
 
-//Kontrollera vinst
-    public boolean checkIfWin(int row, int column, int winCondition){
-        int horizontal = checkHorizontal(row, column);
-        int vertical = checkVertical(row, column);
-        int diagonalDown = checkDiagonalDown(row, column);
-        int diagonalUp = checkDiagonalUp(row, column);
-       
-        if( vertical >= winCondition || 
-            horizontal >= winCondition ||
-            diagonalDown >= winCondition ||
-            diagonalUp >= winCondition)
-        {
-            return true;
-        }else{
-            return false;
-        }
-    }
+
 
     public boolean checkIfFull() {
         return this.getIsFull();
@@ -111,153 +99,6 @@ public class Board {
 
 // ---------- Private methods -------
 
-    private int checkHorizontal(int row, int column){
-        int localNumbersInRow = 1; 
-        localNumbersInRow = localNumbersInRow + checkLeft(row, column);
-        localNumbersInRow = localNumbersInRow + checkRight(row, column);
-        return localNumbersInRow;
-    }
-
-    private int checkVertical(int row, int column){
-        int localNumbersInRow = 1; 
-        localNumbersInRow = localNumbersInRow + checkUp(row, column);
-        localNumbersInRow = localNumbersInRow + checkDown(row, column);
-        return localNumbersInRow;
-    }
-
-    private int checkDiagonalDown(int row, int column){
-        int localNumbersInRow = 1; 
-        localNumbersInRow = localNumbersInRow + checkUpLeft(row, column);
-        localNumbersInRow = localNumbersInRow + checkDownRight(row, column);
-        return localNumbersInRow;
-    }
-
-    private int checkDiagonalUp(int row, int column){
-        int localNumbersInRow = 1; 
-        localNumbersInRow = localNumbersInRow + checkUpRight(row, column);
-        localNumbersInRow = localNumbersInRow + checkDownLeft(row, column);
-        return localNumbersInRow;
-    }
-
-    private int checkUp(int row, int column){
-        int localNumbersInRow = 0;
-        int i = row - 1;
-        while(checkSpaceValid(i, column)){
-            if(this.table[i][column] == this.table[row][column]){
-                localNumbersInRow++;
-                i--;
-            }else{ 
-                break;
-            }
-        }
-        return localNumbersInRow;
-    }
-    private int checkDown(int row, int column){
-        int localNumbersinrow = 0;
-        int i = row + 1;
-        while(checkSpaceValid(i, column)){
-            if(this.table[i][column] == this.table[row][column]){
-                localNumbersinrow++;
-                i++;
-            }else{ 
-                break;
-            }
-        }
-        return localNumbersinrow;
-    }
-
-    private int checkLeft(int row, int column){
-        int localNumbersinrow = 0;
-        int j = column - 1;
-        while(checkSpaceValid(row, j)){
-            if(this.table[row][j] == this.table[row][column]){
-                localNumbersinrow++;
-                j--;
-            }else{ 
-                break;
-            }
-        }
-        return localNumbersinrow;
-    }
-
-    private int checkRight(int row, int column){
-        int localNumbersinrow = 0;
-        int j = column + 1;
-        while(checkSpaceValid(row, j)){
-            if(this.table[row][j] == this.table[row][column]){
-                localNumbersinrow++;
-                j++;
-            }else{ 
-                break;
-            }
-        }
-        return localNumbersinrow;
-    }
-
-    private int checkUpLeft(int row, int column){
-        int localNumbersinrow = 0;
-        int i = row - 1;
-        int j = column - 1;
-        while(checkSpaceValid(i, j)){
-            if(this.table[i][j] == this.table[row][column]){
-                localNumbersinrow++;
-                i--;
-                j--;
-            }else{ 
-                break;
-            }
-        }
-        return localNumbersinrow;
-    }
-
-    private int checkDownRight(int row, int column){
-        int localNumbersinrow = 0;
-        int i = row + 1;
-        int j = column + 1;
-        while(checkSpaceValid(i, j)){
-            if(this.table[i][j] == this.table[row][column]){
-                localNumbersinrow++;
-                i++;
-                j++;
-            }else{ 
-                break;
-            }
-        }
-        return localNumbersinrow;
-    }
-
-
-    private int checkUpRight(int row, int column){
-        int localNumbersinrow = 0;
-        int i = row - 1;
-        int j = column + 1;
-        while(checkSpaceValid(i, j)){
-            if(this.table[i][j] == this.table[row][column]){
-                localNumbersinrow++;
-                i--;
-                j++;
-            }else{ 
-                break;
-            }
-        }
-        return localNumbersinrow;
-    }
-
-    private int checkDownLeft(int row, int column){
-        int localNumbersinrow = 0;
-        int i = row + 1;
-        int j = column - 1;
-        while(checkSpaceValid(i, j)){
-            if(this.table[i][j] == this.table[row][column]){
-                localNumbersinrow++;
-                i++;
-                j--;
-            }else{ 
-                break;
-            }
-        }
-        return localNumbersinrow;
-    }
 
     private void printRow(int x){
         if(x < 9){

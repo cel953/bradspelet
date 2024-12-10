@@ -7,11 +7,12 @@ public class Main {
     protected static ArrayList<Player> restingPlayers = new ArrayList<>();
     protected static int activeGameID = 0;
     protected static boolean nameForPlayer2IsSet = false;
-
+    
     public static void main(String[] args) {
-            while (true) {
-            System.out.println();
-            System.out.println("Hej och välkommen till Swedish Test Mafias brädspelssamling!");
+        System.out.println();
+        System.out.println("Hej och välkommen till Swedish Test Mafias brädspelssamling!");
+        
+        while (true) {
             System.out.println();
             int gameID = Menu.selectGame();
             playerListAdjustment(gameID);
@@ -27,42 +28,34 @@ public class Main {
                 case 1:
                     System.out.println("Du valde att spela Tre i rad mot dator!");
                     System.out.println();
-                    if(players.size() == 0){
+                    if(players.isEmpty()){
                         createPlayerList(1, 1);
-                        Player.chooseName(players);
-                        Player.chooseSymbol(players);
                     }
                     break;
 
                 case 2:
                     System.out.println("Du valde att spela Tre i rad mot en motståndare!\n");
-                    if(players.size() == 0){
+                    if(players.isEmpty()){
                         createPlayerList(2, 0);
-                        Player.chooseName(players);
-                        Player.chooseSymbol(players);
-                        nameForPlayer2IsSet = true;
+                        nameForPlayer2IsSet = true;    
                     }
-
                     break;
 
                 case 3:
                     System.out.println("Du valde att spela Fyra i rad mot en motståndare!\n");
-                    if(players.size() == 0){
+                    if(players.isEmpty()){
                         createPlayerList(2, 0);
-                        Player.chooseName(players);
-                        Player.chooseSymbol(players);
+                        nameForPlayer2IsSet = true;
                     }
-                    nameForPlayer2IsSet = true;
                     break;
 
                 case 4:
                     System.out.println("Du valde att spela Fem  i rad mot en motståndare!\n");
-                    if(players.size() == 0){
+                    if(players.isEmpty()){
                         createPlayerList(2, 0);
-                        Player.chooseName(players);
-                        Player.chooseSymbol(players);
+                        nameForPlayer2IsSet = true;
                     }
-                    nameForPlayer2IsSet = true;
+                    
                     break;
                 default:
                     System.out.println(
@@ -87,6 +80,9 @@ public class Main {
             player.setisHuman(false);
             players.add(player);
         }
+
+        Player.chooseName(players);
+        Player.chooseSymbol(players);
     }
 
     public static void createRestingPlayer(){
