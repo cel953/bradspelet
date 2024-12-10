@@ -7,7 +7,7 @@ public class Main {
     protected static ArrayList<Player> restingPlayers = new ArrayList<>();
     protected static int activeGameID = 0;
     protected static boolean nameForPlayer2IsSet = false;
-
+    
     public static void main(String[] args) {
             while (true) {
             System.out.println();

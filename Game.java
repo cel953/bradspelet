@@ -92,7 +92,8 @@ public class Game {
             }
 
             //  Kontrollerar vinst
-            if (gameBoard.checkIfWin(row, col, calculateWinCondition())) {
+            
+            if (CheckWin.winCheck(gameBoard.getTable(), row, col, calculateWinCondition())) {
                 gameBoard.print();
                 System.out.println(currentPlayer.getName() + " vann!");
                 currentPlayer.increaseStats(gameID);
