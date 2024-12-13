@@ -1,0 +1,18 @@
+Change log
+
+2024-12-11 /Kristin
+Board:
+- Skapade en ny klass CheckWin med metod winCheck(char[][] table, int row, int column, int winCondition) där kontrollen av antal symboler i rad nu ligger
+- Skapat ny metod checkSpaceValid(char[][] table, int row, int column) som overloadar checkSpaceValid(int row, int column) för att nå den med table från CheckWin
+
+Game:
+- Brutit ut print av GameOver-meny till ny metod printGameOverMenu()
+
+Main:
+- Välkomstmeddelande "Hej och välkommen till ..." skrivs nu ut endast en gång i början av spelet, inte varje gång startmenyn visas
+- Justerat (players.size() == 0) till (players.isEmpty)
+- Flyttat Player.choosename(players) och Player.chooseSymbol(players) till metoden createPlayerList()
+
+Menu:
+- Brutit ut print av startmeny till egen metod printMenu()
+- Ersatt switch-sats för meny med enklare if-sats
