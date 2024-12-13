@@ -1,6 +1,6 @@
 Change log
 
-2024-12-11 /Kristin
+2024-12-10 /Kristin
 Board:
 - Skapade en ny klass CheckWin med metod winCheck(char[][] table, int row, int column, int winCondition) där kontrollen av antal symboler i rad nu ligger
 - Skapat ny metod checkSpaceValid(char[][] table, int row, int column) som overloadar checkSpaceValid(int row, int column) för att nå den med table från CheckWin
